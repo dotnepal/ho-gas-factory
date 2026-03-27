@@ -134,6 +134,7 @@ export default function Footer() {
             <div className="mt-6">
               <FooterHeading>Quick Links</FooterHeading>
               <ul className="space-y-2">
+                <FooterLink to="/services">{t('nav.services')}</FooterLink>
                 <FooterLink to="/faq">{t('footer.links.faq')}</FooterLink>
                 <FooterLink to="/contact">{t('nav.contact')}</FooterLink>
                 <FooterLink to="/products">{t('nav.products')}</FooterLink>

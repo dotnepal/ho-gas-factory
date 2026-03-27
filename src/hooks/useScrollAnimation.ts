@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 
 export function useScrollAnimation<T extends HTMLElement = HTMLDivElement>({
   stagger = 0,
-  threshold = 0.12,
+  threshold = 0,
 }: {
   stagger?: number
   threshold?: number
@@ -29,7 +29,7 @@ export function useScrollAnimation<T extends HTMLElement = HTMLDivElement>({
 
         observer.disconnect()
       },
-      { threshold, rootMargin: '0px 0px -40px 0px' }
+      { threshold, rootMargin: '0px 0px -60px 0px' }
     )
 
     observer.observe(el)

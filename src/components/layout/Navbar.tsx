@@ -30,7 +30,7 @@ function Logo({ transparent = false, onClick }: { transparent?: boolean; onClick
   )
 }
 
-// ─── Desktop nav link ──────────────────────────────────────────────────────
+// ─── Desktop nav pill link ──────────────────────────────────────────────────
 
 function DesktopNavLink({
   to,
@@ -47,15 +47,14 @@ function DesktopNavLink({
       end={to === '/'}
       className={({ isActive }) =>
         [
-          'relative font-body font-medium text-sm transition-colors duration-200 pb-0.5',
-          'after:absolute after:bottom-0 after:left-0 after:h-[2px] after:rounded-full after:transition-all after:duration-200',
+          'font-body font-medium text-sm rounded-full px-4 py-1.5 transition-colors duration-200',
           transparent
             ? isActive
-              ? 'text-white after:w-full after:bg-white'
-              : 'text-white/80 hover:text-white after:w-0 after:bg-white hover:after:w-full'
+              ? 'bg-white/20 text-white'
+              : 'text-white/80 hover:bg-white/15 hover:text-white'
             : isActive
-              ? 'text-brand-blue after:w-full after:bg-brand-blue'
-              : 'text-brand-dark hover:text-brand-blue after:w-0 after:bg-brand-blue hover:after:w-full',
+              ? 'bg-brand-blue text-white'
+              : 'text-brand-dark hover:bg-brand-light hover:text-brand-blue',
         ].join(' ')
       }
     >
@@ -64,7 +63,7 @@ function DesktopNavLink({
   )
 }
 
-// ─── Mobile nav link ───────────────────────────────────────────────────────
+// ─── Mobile nav link (inside dropdown) ─────────────────────────────────────
 
 function MobileNavLink({
   to,
@@ -82,7 +81,7 @@ function MobileNavLink({
       onClick={onClick}
       className={({ isActive }) =>
         [
-          'flex items-center px-4 py-3 rounded-xl font-body font-medium text-base transition-all duration-150',
+          'flex items-center w-full px-5 py-3 rounded-lg font-body font-medium text-base transition-colors duration-150',
           isActive
             ? 'bg-brand-light text-brand-blue font-semibold'
             : 'text-brand-dark hover:bg-brand-light/70 hover:text-brand-blue',
@@ -107,13 +106,11 @@ function MenuIcon({ open }: { open: boolean }) {
       className="transition-transform duration-200"
     >
       {open ? (
-        // X icon
         <>
           <line x1="4" y1="4" x2="18" y2="18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
           <line x1="18" y1="4" x2="4" y2="18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
         </>
       ) : (
-        // Hamburger icon
         <>
           <line x1="3" y1="6" x2="19" y2="6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
           <line x1="3" y1="11" x2="19" y2="11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
@@ -130,10 +127,9 @@ export default function Navbar() {
   const { t } = useTranslation()
   const scrolled = useScrolled(20)
   const [isOpen, setIsOpen] = useState(false)
-  const drawerRef = useRef<HTMLDivElement>(null)
   const hamburgerRef = useRef<HTMLButtonElement>(null)
 
-  // Close drawer on ESC
+  // Close dropdown on ESC
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
       if (e.key === 'Escape' && isOpen) {
@@ -145,39 +141,7 @@ export default function Navbar() {
     return () => document.removeEventListener('keydown', onKeyDown)
   }, [isOpen])
 
-  // Lock body scroll when drawer is open
-  useEffect(() => {
-    document.body.style.overflow = isOpen ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
-  }, [isOpen])
-
-  // Trap focus inside drawer when open
-  useEffect(() => {
-    if (!isOpen) return
-    const drawer = drawerRef.current
-    if (!drawer) return
-
-    const focusables = drawer.querySelectorAll<HTMLElement>(
-      'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
-    )
-    const first = focusables[0]
-    const last = focusables[focusables.length - 1]
-
-    function trapTab(e: KeyboardEvent) {
-      if (e.key !== 'Tab') return
-      if (e.shiftKey) {
-        if (document.activeElement === first) { e.preventDefault(); last.focus() }
-      } else {
-        if (document.activeElement === last) { e.preventDefault(); first.focus() }
-      }
-    }
-
-    drawer.addEventListener('keydown', trapTab)
-    first?.focus()
-    return () => drawer.removeEventListener('keydown', trapTab)
-  }, [isOpen])
-
-  function closeDrawer() {
+  function closeDropdown() {
     setIsOpen(false)
     hamburgerRef.current?.focus()
   }
@@ -185,7 +149,7 @@ export default function Navbar() {
   const transparent = !scrolled
 
   return (
-    <header>
+    <header className="relative">
       {/* ── Main bar ───────────────────────────────────────────────── */}
       <nav
         aria-label="Main navigation"
@@ -199,10 +163,10 @@ export default function Navbar() {
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-8">
           <Logo transparent={transparent} />
 
-          {/* Desktop links */}
+          {/* Desktop pill links */}
           <ul
             role="list"
-            className="hidden md:flex items-center gap-8"
+            className="hidden md:flex items-center gap-1"
           >
             {ROUTES.map((route) => (
               <li key={route.path}>
@@ -235,7 +199,7 @@ export default function Navbar() {
               type="button"
               aria-label={isOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={isOpen}
-              aria-controls="mobile-drawer"
+              aria-controls="mobile-dropdown"
               onClick={() => setIsOpen((v) => !v)}
               className={[
                 'md:hidden inline-flex items-center justify-center w-11 h-11 rounded-lg transition-colors',
@@ -248,65 +212,55 @@ export default function Navbar() {
             </button>
           </div>
         </div>
+
+        {/* ── Mobile dropdown panel ─────────────────────────────── */}
+        <div
+          id="mobile-dropdown"
+          aria-label="Navigation menu"
+          aria-hidden={!isOpen}
+          className={[
+            'md:hidden absolute top-full left-0 right-0 bg-white shadow-lg rounded-b-xl overflow-hidden',
+            'transition-all duration-200 ease-out',
+            isOpen
+              ? 'opacity-100 translate-y-0 pointer-events-auto'
+              : 'opacity-0 -translate-y-2 pointer-events-none',
+          ].join(' ')}
+        >
+          {/* Nav links */}
+          <nav aria-label="Mobile navigation" className="px-3 pt-3 pb-2 flex flex-col gap-0.5">
+            {ROUTES.map((route) => (
+              <MobileNavLink key={route.path} to={route.path} onClick={closeDropdown}>
+                {t(route.labelKey)}
+              </MobileNavLink>
+            ))}
+          </nav>
+
+          {/* Divider + CTA + language row */}
+          <div className="border-t border-slate-100 mx-3 mt-1 mb-3 pt-3 flex items-center justify-between gap-3">
+            <Button
+              as="a"
+              href="/contact"
+              size="sm"
+              variant="primary"
+              className="flex-1 justify-center"
+              onClick={closeDropdown}
+            >
+              {t('common.contactUs')}
+            </Button>
+            <LanguageToggle />
+          </div>
+        </div>
       </nav>
 
-      {/* ── Mobile drawer ──────────────────────────────────────────── */}
-      {/* Backdrop */}
+      {/* ── Backdrop (mobile only) ──────────────────────────────── */}
       <div
         aria-hidden="true"
-        onClick={closeDrawer}
+        onClick={closeDropdown}
         className={[
-          'fixed inset-0 z-40 bg-brand-dark/40 backdrop-blur-sm md:hidden transition-opacity duration-300',
+          'fixed inset-0 z-40 bg-brand-dark/30 md:hidden transition-opacity duration-200',
           isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none',
         ].join(' ')}
       />
-
-      {/* Drawer panel */}
-      <div
-        id="mobile-drawer"
-        ref={drawerRef}
-        role="dialog"
-        aria-modal="true"
-        aria-label="Navigation menu"
-        aria-hidden={!isOpen}
-        className={[
-          'fixed top-0 right-0 h-full w-72 z-50 md:hidden',
-          'bg-white shadow-2xl flex flex-col',
-          'transition-transform duration-300 ease-out',
-          isOpen ? 'translate-x-0' : 'translate-x-full',
-        ].join(' ')}
-      >
-        {/* Drawer header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
-          <Logo onClick={closeDrawer} />
-          <button
-            type="button"
-            aria-label="Close menu"
-            onClick={closeDrawer}
-            className="inline-flex items-center justify-center w-10 h-10 rounded-lg text-brand-dark hover:bg-brand-light transition-colors"
-          >
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-              <line x1="2" y1="2" x2="16" y2="16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-              <line x1="16" y1="2" x2="2" y2="16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-            </svg>
-          </button>
-        </div>
-
-        {/* Drawer nav links */}
-        <nav aria-label="Mobile navigation" className="flex-1 px-3 py-4 flex flex-col gap-1 overflow-y-auto">
-          {ROUTES.map((route) => (
-            <MobileNavLink key={route.path} to={route.path} onClick={closeDrawer}>
-              {t(route.labelKey)}
-            </MobileNavLink>
-          ))}
-        </nav>
-
-        {/* Drawer footer */}
-        <div className="px-5 py-4 border-t border-slate-100 flex items-center justify-between">
-          <span className="text-xs font-body text-brand-steel">Language</span>
-          <LanguageToggle />
-        </div>
-      </div>
     </header>
   )
 }

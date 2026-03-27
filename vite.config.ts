@@ -11,6 +11,8 @@ export default defineConfig({
     ssgPlugin({
       // Scan src/pages/ for components that export `ssgOptions`
       pages: 'src/pages/',
+      // Disable dev middleware so Vite dev server serves the live React app
+      devMiddleware: false,
       config: {
         // Output pre-rendered HTML alongside the regular Vite build
         outDir: 'dist',

@@ -14,14 +14,19 @@ export const ROUTES = [
     component: lazy(() => import('./pages/HomePage')),
   },
   {
-    path: '/about',
-    labelKey: 'nav.about',
-    component: lazy(() => import('./pages/AboutPage')),
+    path: '/services',
+    labelKey: 'nav.services',
+    component: lazy(() => import('./pages/ServicesPage')),
   },
   {
     path: '/products',
     labelKey: 'nav.products',
     component: lazy(() => import('./pages/ProductsPage')),
+  },
+  {
+    path: '/about',
+    labelKey: 'nav.about',
+    component: lazy(() => import('./pages/AboutPage')),
   },
   {
     path: '/contact',
