@@ -402,3 +402,73 @@ After every feature has been implemented. Run npm run build and ensure that ever
 
 
 *This specification document outlines the complete plan for the gas factory website. Any updates or changes should be documented and approved before implementation.*
+
+---
+
+## 9. Changelog & Updates
+
+### 2026-03-28 — F-016 Complete + Bug Fixes
+
+**Current State (updated):** Phase 2 in progress — F-001 through F-013, F-015, F-016 complete. F-014 (Deploy) partial: _redirects + wrangler.toml done; GitHub Actions CI/CD + VITE_FORM_ENDPOINT pending.
+
+#### F-016: Standard Main Menu & Services Page — COMPLETE
+
+**New page added:**
+- `src/pages/ServicesPage.tsx` — Dedicated Services page with 6 service cards (Rent, Sale, Refilling, Bulk, Delivery, Pickup) + CTA section
+
+**Navbar redesigned:**
+- Desktop: pill-style navigation links (rounded buttons, active state highlight)
+- Mobile: compact dropdown menu (not drawer)
+- "Services" menu item added to navigation
+
+**Route added:**
+- `/services` → ServicesPage (lazy loaded)
+- `src/routes.ts` updated with Services entry
+
+**i18n updated:**
+- `src/i18n/en.json` — added full `services` namespace (hero, 6 service descriptions, CTA)
+- `src/i18n/np.json` — Nepali translations for all services content
+
+**sitemap.xml updated:** Now covers 6 routes (/, /about, /products, /services, /contact, /faq)
+
+**New task files:**
+- `tasks/3-STANDARD-MENUS.md` — F-016 specification and implementation notes
+- `tasks/FIX-INTERSECTION-OBSERVER.md` — Root cause analysis and fix documentation
+
+---
+
+#### Bug Fix: IntersectionObserver — Text Invisible — FIXED (2026-03-28)
+
+**Affected files:**
+- `src/hooks/useScrollAnimation.ts`
+- `src/index.css`
+
+**Root causes (two independent bugs):**
+1. React re-renders (triggered by i18next language detection) overwrote `className` prop, wiping the `is-visible` class from DOM elements
+2. `threshold: 0.12` (12% visibility) was too high for tall stacked containers on mobile
+
+**Fixes applied:**
+1. Changed `classList.add('is-visible')` → `dataset.visible = '1'` (data attributes survive React reconciliation)
+2. CSS selector updated from `.animate-on-scroll.is-visible` → `.animate-on-scroll[data-visible]`
+3. `threshold: 0.12` → `threshold: 0` (fire on any pixel intersection)
+4. `rootMargin: -40px` → `rootMargin: '0px 0px -60px 0px'` (ensures element is meaningfully in view)
+
+---
+
+#### Corrections to Earlier Sections
+
+- **Tech Stack "Runtime"** (line 46) — Listed as "React 18" but actual installed version is **React 19** (v19.2.4). `src/main.tsx` was always documented as "React 19 entry point". Use React 19 APIs going forward.
+- **Section 7.2 "Frontend"** (line 300) — Same correction: React 18 → React 19.
+- **Navigation Menu** (Section 3.1) — Lists 5 pages. A 6th page has been added: **Services** (`/services`) with dedicated ServicesPage component.
+- **Page Wireframes table** — Services page now exists:
+  - Services | 6 service cards (Rent/Sale/Refilling/Bulk/Delivery/Pickup) + CTA
+- **Repository Contents** — `public/sitemap.xml` covers 6 routes (not 5). `src/pages/` now includes `ServicesPage.tsx`.
+
+---
+
+#### Lessons Captured (2026-03-28)
+
+See `tasks/lessons.md` for full details. Key additions:
+- **L-005 (updated):** Scroll animation CSS must use `[data-visible]` attribute selector — React reconciliation will overwrite class-based state
+- **L-006:** Define inline SVG icons as module-level constants to prevent re-creating JSX on every render
+- **L-007:** SSG StaticRouter `location` prop must exactly match `routeUrl` to render correct active nav state in static HTML
