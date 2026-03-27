@@ -4,15 +4,30 @@
 
 **Purpose:** Build brand trust, showcase services, and generate sales leads
 
-**Current State:** GREENFIELD — no source code exists yet. Only documentation and task files are present. Phase 1 (Design/Mockup) is complete. Phase 2 (Implementation) is approved and in progress.
+**Current State:** Phase 2 in progress — F-001 through F-007 complete. F-008 through F-010 (pages) are next. F-011 (Accessibility) partial. F-012 (Animations) not started. F-013 (Responsive) mostly done. F-014 (Deploy) partial.
 
 **Repository Contents (as of 2026-03-27):**
 - `CLAUDE.md` — project specification and workflow rules (this file)
 - `tasks/1-FEATURES.md` — feature breakdown with ASCII wireframes and 14 task items (F-001 to F-014)
 - `tasks/ARCHITECTURE-DECISION.md` — detailed architecture and system design decisions
+- `tasks/lessons.md` — lessons learned during implementation
 - `docs/1-INITIAL-SPECIFICATION.md` — full original specification document
 - `docs/SKILLS.md` — frontend aesthetic guidelines (fonts, motion, spatial composition)
-- No `src/`, `package.json`, `node_modules`, or any build artifacts exist yet
+- `package.json`, `vite.config.ts`, `tsconfig.json` — build configuration
+- `index.html` — entry HTML with Google Fonts preconnect
+- `src/main.tsx` — React 19 entry point
+- `src/App.tsx` — root router with RootLayout (Navbar + Footer + Suspense)
+- `src/index.css` — Tailwind v4 @theme brand tokens + global styles
+- `src/routes.ts` — route definitions for react-router-dom v6
+- `src/pages/` — HomePage, AboutPage (full), ProductsPage/ContactPage/FAQPage (stubs)
+- `src/components/layout/` — Navbar.tsx, Footer.tsx
+- `src/components/ui/` — Button, Card, Badge, PageHero, SectionHeader, LanguageToggle, index.ts
+- `src/hooks/useScrolled.ts` — scroll detection hook
+- `src/i18n/` — en.json, np.json, index.ts, ssgContext.tsx
+- `src/data/` — reserved (products.ts, faq.ts not yet created)
+- `functions/api/contact.ts` — Cloudflare Pages Function for form submission
+- `public/_redirects` — SPA routing rule for Cloudflare Pages
+- `wrangler.toml` — Cloudflare Pages config skeleton
 
 **Decisions:**
 - Color palette: Blue & White
@@ -300,6 +315,12 @@ For each cylinder size, display:
 **Phase 1:** Design mockups and approval — ✓ COMPLETE (2026-03-27)
 **Phase 2:** Frontend development — IN PROGRESS (F-001 through F-014 per `tasks/1-FEATURES.md`)
   - Implementation order: F-001→F-002→F-003 (foundation) → F-004→F-005 (shell) → F-006→F-010 (pages) → F-011→F-013 (polish) → F-014 (deploy)
+  - F-001 through F-007 ✓ COMPLETE (2026-03-27) — scaffolding, i18n, design system, navbar, footer, home page, about page
+  - F-008 (Products), F-009 (Contact), F-010 (FAQ) — IN PROGRESS
+  - F-011 (Accessibility) — PARTIAL: ARIA labels + per-page meta done; robots.txt + sitemap.xml pending
+  - F-012 (Animations) — NOT STARTED
+  - F-013 (Responsive) — MOSTLY DONE: all breakpoints functional; cylinder table mobile card stack pending
+  - F-014 (Deployment) — PARTIAL: _redirects + wrangler.toml + functions/api/contact.ts done; GitHub Actions CI/CD pending
   - Architecture decisions documented in `tasks/ARCHITECTURE-DECISION.md`
 **Phase 3:** Backend integration (contact form, email notifications)
 **Phase 4:** Testing and QA

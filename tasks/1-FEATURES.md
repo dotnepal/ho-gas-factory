@@ -172,19 +172,21 @@
 - [x] Copyright line with year interpolation (`{{year}}`)
 > Notes: Footer uses `bg-brand-dark` with white text. Logo uses white/accent variant for dark bg. Map iframe uses no-API-key embed URL for Kathmandu. Reuses `contact.info.*` i18n keys for phone/email/address to avoid duplication.
 
-### F-006: Home Page
-- [ ] Hero section: tagline, sub-copy, two CTAs (`/contact`, `/products`), hero image
-- [ ] Gas highlights: 3 cards (Oxygen, Nitrogen, Hydrogen) with icon + desc + "Learn More"
-- [ ] Services strip: icon row (Rent, Sale, Refilling, Bulk Orders, Delivery)
-- [ ] Trust gallery: 3 placeholder images + credibility tagline
-- [ ] Bottom CTA banner
+### F-006: Home Page ✓ COMPLETE (2026-03-27)
+- [x] Hero section: tagline, sub-copy, two CTAs (`/contact`, `/products`), hero image
+- [x] Gas highlights: 3 cards (Oxygen, Nitrogen, Hydrogen) with icon + desc + "Learn More"
+- [x] Services strip: icon row (Rent, Sale, Refilling, Bulk Orders, Delivery)
+- [x] Trust gallery: 3 placeholder images + credibility tagline
+- [x] Bottom CTA banner
+> Notes: HomeHero uses split 2-col layout (hidden on mobile), gradient bg + dot-grid + radial glow. GasHighlights uses inline SVG GAS_ICONS constant (O₂/N₂/H₂). ServicesStrip uses emoji badges in brand-light bg. TrustGallery uses `Card flush hover as="figure"` pattern for edge-to-edge images. CTABanner uses white Button on gradient bg.
 
-### F-007: About Us Page
-- [ ] Page hero banner
-- [ ] Company story section (2-col: text + facility image)
-- [ ] Team cards grid (photo, name, role) — 3–4 placeholder members
-- [ ] Service area badges (Local / Regional / National)
-- [ ] "Why Choose Us" 4-col icon grid
+### F-007: About Us Page ✓ COMPLETE (2026-03-27)
+- [x] Page hero banner
+- [x] Company story section (2-col: text + facility image)
+- [x] Team cards grid (photo, name, role) — 3–4 placeholder members
+- [x] Service area badges (Local / Regional / National)
+- [x] "Why Choose Us" 4-col icon grid
+> Notes: Reuses `PageHero` component. CompanyStory hides facility image on mobile (`hidden lg:block`). TEAM_MEMBERS is a static module-level constant (not i18n — proper nouns). ServiceAreas reuses Badge `variant="primary"` with emoji. WHY_US_ICONS constant follows GAS_ICONS pattern. Background alternation: gradient → white → brand-light → white → brand-light.
 
 ### F-008: Products/Services Page
 - [ ] Tab bar (Oxygen | Nitrogen | Hydrogen) with animated underline
