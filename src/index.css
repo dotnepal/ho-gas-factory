@@ -130,3 +130,18 @@
   clip: auto;
   white-space: normal;
 }
+
+/* ─── FOUC Prevention (Language Toggle) ─────────────────────────────────────
+   When a user has ho-gas-lang=ne in localStorage, the blocking script in
+   index.html sets data-lang="ne" on <html> BEFORE the browser paints.
+   This hides the English SSG pre-render so the user never sees a flash.
+   Once React mounts and RootLayout's useEffect fires, it adds the
+   lang-ready class, which triggers the reveal rule below. */
+html[data-lang="ne"] #root {
+  visibility: hidden;
+}
+
+html:not([data-lang="ne"]) #root,
+html[data-lang="ne"].lang-ready #root {
+  visibility: visible;
+}

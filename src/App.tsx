@@ -14,9 +14,14 @@ import Footer from './components/layout/Footer'
 function RootLayout() {
   const { i18n } = useTranslation()
 
-  // Keep <html lang="..."> in sync with the active language
+  // Keep <html lang="..."> in sync with the active language.
+  // Also syncs data-lang attribute (used by FOUC-prevention CSS) and adds
+  // lang-ready class to reveal #root once the correct language is rendered.
   useEffect(() => {
-    document.documentElement.lang = i18n.language.startsWith('ne') ? 'ne' : 'en'
+    const isNepali = i18n.language.startsWith('ne')
+    document.documentElement.lang = isNepali ? 'ne' : 'en'
+    document.documentElement.setAttribute('data-lang', isNepali ? 'ne' : 'en')
+    document.documentElement.classList.add('lang-ready')
   }, [i18n.language])
 
   return (

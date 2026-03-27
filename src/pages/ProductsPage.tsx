@@ -18,9 +18,8 @@ export const ssgOptions: SsgOptions = {
     </>
   ),
   context: async (children) => {
-    const { StaticRouter } = await import('react-router-dom/server')
-    const { withI18nProvider } = await import('../i18n/ssgContext')
-    return withI18nProvider(<StaticRouter location="/products">{children}</StaticRouter>)
+    const { withSSGLayout } = await import('../i18n/ssgContext')
+    return withSSGLayout(children, '/products')
   },
 };
 

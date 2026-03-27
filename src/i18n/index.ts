@@ -13,7 +13,7 @@ import np from './np.json'
  * - Language preference is persisted to localStorage via LanguageDetector
  * - Detection order: localStorage → navigator language → fallback to 'en'
  */
-i18n
+export const i18nReady = i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
