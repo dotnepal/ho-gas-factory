@@ -242,11 +242,14 @@ This site has 5 pages with static content. No user-specific data, no real-time i
 
 Pre-render all 5 routes to static HTML at build time. Deploy to Cloudflare Pages CDN. Each page URL produces a real HTML file (`/about/index.html`) with all content visible to search engines and parseable without JavaScript.
 
-**Implementation:**
-- First attempt: `vite-plugin-ssg` npm package. Must verify it is compatible with React 18 and Vite 5 before starting F-001.
-- Fallback: A custom `prerender.ts` script (~60 lines) using React's `renderToString` called as a Vite build hook. This is the industry-standard fallback pattern and is not complex.
-- `src/routes.ts` exports the route list — consumed by both `createBrowserRouter` (runtime) and the SSG plugin's `includedRoutes` config (build time). Single source of truth.
-- `public/_redirects` provides `/* /index.html 200` as SPA fallback for Cloudflare Pages (handles deep-link refreshes gracefully even when SSG files exist).
+**Implementation (confirmed working as of F-001):**
+- `vite-plugin-ssg` v0.1.0 is confirmed compatible with Vite 5 + React 19 (requires React 19 for `react-dom/static`'s `prerenderToNodeStream` API — React 18 is NOT sufficient).
+- Actual package API: exports `ssgPlugin` (not `ssg`). Scans `src/pages/` folder for files with a `ssgOptions` export.
+- Each page component must export a `ssgOptions: SsgOptions` object (from `vite-plugin-ssg/utils`) with `slug`, `routeUrl`, `Head`, and `context`. The object **must** end with `};` (semicolon) — the plugin uses a regex to detect it.
+- Slugs must NOT contain `/` (e.g., use `'about'` not `'about/index'`) — the plugin has a bug where subdirectory slugs cause a temp file write failure.
+- Output: `dist/about.html`, `dist/products.html`, etc. (served at `/about`, `/products` on Cloudflare Pages). No `about/index.html` structure.
+- `public/_redirects` with `/* /index.html 200` provides SPA fallback. Cloudflare Pages serves static files before applying redirect rules.
+- React version: **19.2.4** (upgraded from 18 during F-001 to satisfy `vite-plugin-ssg`'s use of `prerenderToNodeStream`).
 
 **Nepali i18n tradeoff:** The static HTML will contain only English strings. Nepali content loads after JS hydration. This is intentional and acceptable: Nepali is a user preference feature, not a primary SEO target. The `html[lang]` attribute switches to `ne` after hydration.
 
