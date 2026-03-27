@@ -4,25 +4,51 @@
 
 **Purpose:** Build brand trust, showcase services, and generate sales leads
 
+**Current State:** GREENFIELD — no source code exists yet. Only documentation and task files are present. Phase 1 (Design/Mockup) is complete. Phase 2 (Implementation) is approved and in progress.
+
+**Repository Contents (as of 2026-03-27):**
+- `CLAUDE.md` — project specification and workflow rules (this file)
+- `tasks/1-FEATURES.md` — feature breakdown with ASCII wireframes and 14 task items (F-001 to F-014)
+- `tasks/ARCHITECTURE-DECISION.md` — detailed architecture and system design decisions
+- `docs/1-INITIAL-SPECIFICATION.md` — full original specification document
+- `docs/SKILLS.md` — frontend aesthetic guidelines (fonts, motion, spatial composition)
+- No `src/`, `package.json`, `node_modules`, or any build artifacts exist yet
+
 **Decisions:**
 - Color palette: Blue & White
 - Framework: React + Vite (SSG)
 - Deployment: Cloudflare pages
 - Website Language: EN/NP toggle
 - Accessibility: WCAG 4.5:1 contrast + ARIA labels
-- Images: placeholder.com
+- Images: placeholder.com (via `https://placehold.co/WxH`)
 - Pages: Home, About, Products, Contact, FAQ (accordion style)
 
 ---
-## Tech Stack (Confirmed)
+## Tech Stack (Confirmed & Locked)
 - **Runtime:** React 18 + TypeScript
-- **Build:** Vite + `vite-plugin-ssg` (static site generation)
-- **Styling:** Tailwind CSS with custom brand tokens (`brand-blue: #1E40AF`, `brand-light: #EFF6FF`)
-- **Fonts:** Sora (display) + DM Sans (body) — non-generic per SKILLS.md
-- **Routing:** react-router-dom v6
-- **i18n:** react-i18next + i18next (EN/NP toggle, persisted to localStorage)
-- **Forms:** react-hook-form (client-side validation)
-- **Hosting:** Cloudflare Pages (with Pages Functions for form submission)
+- **Build:** Vite 5 + SSG prerender (verify `vite-plugin-ssg` compatibility; fallback to custom `prerender.ts` script using `renderToString` if package is unmaintained)
+- **Styling:** Tailwind CSS v4 with CSS-native `@theme` config (brand tokens in `src/index.css`, not `tailwind.config.ts`)
+- **Fonts:** Sora 400/600/700 (display) + DM Sans 400/500/700 (body) — loaded via Google Fonts `<link preconnect>` in `index.html`
+- **Routing:** react-router-dom v6 with `createBrowserRouter`
+- **i18n:** react-i18next + i18next + i18next-browser-languagedetector (EN/NP toggle, persisted to localStorage, translations bundled into JS — no HTTP fetch)
+- **Forms:** react-hook-form (client-side validation with inline errors)
+- **Animations:** Motion library (React, formerly Framer Motion) — used selectively for hero staggered reveal and page transitions only; CSS `@keyframes` + Intersection Observer for scroll-triggered effects
+- **Hosting:** Cloudflare Pages (with Pages Functions at `functions/api/contact.ts` for form submission)
+- **Form Fallback:** Web3Forms API (used when Cloudflare Pages Function env var is not configured)
+
+## Tailwind v4 Note
+Tailwind v4 does NOT use `tailwind.config.ts`. Brand tokens are defined using `@theme` directive in `src/index.css`:
+```css
+@import "tailwindcss";
+@theme {
+  --color-brand-blue: #1E40AF;
+  --color-brand-light: #EFF6FF;
+  --color-brand-dark: #1E3A5F;
+  --color-brand-accent: #3B82F6;
+  --font-display: "Sora", sans-serif;
+  --font-body: "DM Sans", sans-serif;
+}
+```
 
 ---
 ## Page Wireframes (Summary)
@@ -251,12 +277,13 @@ For each cylinder size, display:
 - Easy navigation
 - Clear call-to-action elements
 
-### 7.2 Technology Stack (To Be Determined)
+### 7.2 Technology Stack (CONFIRMED — See "Tech Stack" section above)
 
-- Frontend framework (React or static HTML/CSS, Static Site Generator, SSG)
-- Hosting platform (Cloudflare pages)
-- Email service for contact form submissions (cloudflare integrations)
-- Domain and SSL certificate (cloudflare integrations)
+- **Frontend:** React 18 + TypeScript + Vite 5 + SSG prerender
+- **Styling:** Tailwind CSS v4 (CSS-native @theme config)
+- **Hosting:** Cloudflare Pages
+- **Email/Form:** Cloudflare Pages Functions (`functions/api/contact.ts`) with Web3Forms fallback
+- **Domain/SSL:** Cloudflare (managed via `wrangler.toml`)
 
 ### 7.3 Accessibility & SEO
 
@@ -270,8 +297,10 @@ For each cylinder size, display:
 
 ## 8. Development Phases
 
-**Phase 1:** Design mockups and approval
-**Phase 2:** Frontend development (HTML, CSS, JavaScript/React)
+**Phase 1:** Design mockups and approval — ✓ COMPLETE (2026-03-27)
+**Phase 2:** Frontend development — IN PROGRESS (F-001 through F-014 per `tasks/1-FEATURES.md`)
+  - Implementation order: F-001→F-002→F-003 (foundation) → F-004→F-005 (shell) → F-006→F-010 (pages) → F-011→F-013 (polish) → F-014 (deploy)
+  - Architecture decisions documented in `tasks/ARCHITECTURE-DECISION.md`
 **Phase 3:** Backend integration (contact form, email notifications)
 **Phase 4:** Testing and QA
 **Phase 5:** Deployment and launch
