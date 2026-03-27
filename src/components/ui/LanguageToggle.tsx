@@ -7,7 +7,11 @@ import type { SupportedLang } from '../../i18n'
  *
  * Used in: Navbar (F-004), and wherever a standalone toggle is needed.
  */
-export default function LanguageToggle({ className = '' }: { className?: string }) {
+export default function LanguageToggle({
+  transparent = false,
+}: {
+  transparent?: boolean
+}) {
   const { i18n } = useTranslation()
 
   const currentLang = i18n.language.startsWith('ne') ? 'ne' : 'en'
@@ -23,7 +27,12 @@ export default function LanguageToggle({ className = '' }: { className?: string 
     <button
       onClick={handleToggle}
       aria-label={`Switch to ${nextLang === 'ne' ? 'Nepali' : 'English'}`}
-      className={`inline-flex items-center justify-center min-w-[44px] min-h-[44px] px-3 py-1 rounded-md border border-brand-blue text-brand-blue font-body font-medium text-sm hover:bg-brand-blue hover:text-white transition-colors ${className}`}
+      className={[
+        'inline-flex items-center justify-center min-w-[44px] min-h-[44px] px-3 py-1 rounded-md border font-body font-medium text-sm transition-colors',
+        transparent
+          ? 'border-white/60 text-white hover:bg-white/15 hover:border-white'
+          : 'border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white',
+      ].join(' ')}
     >
       {label}
     </button>

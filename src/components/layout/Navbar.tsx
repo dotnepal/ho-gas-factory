@@ -6,48 +6,16 @@ import { useScrolled } from '../../hooks/useScrolled'
 import LanguageToggle from '../ui/LanguageToggle'
 import Button from '../ui/Button'
 
-// ─── Logo ──────────────────────────────────────────────────────────────────
-
-function Logo() {
-  return (
-    <NavLink
-      to="/"
-      aria-label="HO Gas Factory — Home"
-      className="flex items-center gap-2 select-none"
-    >
-      {/* Cylinder icon */}
-      <svg
-        width="32"
-        height="32"
-        viewBox="0 0 32 32"
-        fill="none"
-        aria-hidden="true"
-        className="shrink-0"
-      >
-        <ellipse cx="16" cy="7" rx="9" ry="4" fill="var(--color-brand-blue)" />
-        <rect x="7" y="7" width="18" height="16" fill="var(--color-brand-blue)" />
-        <ellipse cx="16" cy="23" rx="9" ry="4" fill="var(--color-brand-dark)" />
-        <ellipse cx="16" cy="7" rx="9" ry="4" fill="var(--color-brand-accent)" opacity="0.6" />
-        {/* valve cap */}
-        <rect x="13" y="2" width="6" height="3" rx="1.5" fill="var(--color-brand-dark)" />
-      </svg>
-
-      <span className="font-display font-bold leading-none">
-        <span className="text-brand-blue text-xl">HO</span>
-        <span className="text-brand-dark text-lg"> Gas Factory</span>
-      </span>
-    </NavLink>
-  )
-}
-
 // ─── Desktop nav link ──────────────────────────────────────────────────────
 
 function DesktopNavLink({
   to,
   children,
+  transparent,
 }: {
   to: string
   children: React.ReactNode
+  transparent: boolean
 }) {
   return (
     <NavLink
@@ -57,9 +25,13 @@ function DesktopNavLink({
         [
           'relative font-body font-medium text-sm transition-colors duration-200 pb-0.5',
           'after:absolute after:bottom-0 after:left-0 after:h-[2px] after:rounded-full after:transition-all after:duration-200',
-          isActive
-            ? 'text-brand-blue after:w-full after:bg-brand-blue'
-            : 'text-brand-dark hover:text-brand-blue after:w-0 after:bg-brand-blue hover:after:w-full',
+          transparent
+            ? isActive
+              ? 'text-white after:w-full after:bg-white'
+              : 'text-white/80 hover:text-white after:w-0 after:bg-white hover:after:w-full'
+            : isActive
+              ? 'text-brand-blue after:w-full after:bg-brand-blue'
+              : 'text-brand-dark hover:text-brand-blue after:w-0 after:bg-brand-blue hover:after:w-full',
         ].join(' ')
       }
     >
@@ -186,6 +158,8 @@ export default function Navbar() {
     hamburgerRef.current?.focus()
   }
 
+  const transparent = !scrolled
+
   return (
     <header>
       {/* ── Main bar ───────────────────────────────────────────────── */}
@@ -195,11 +169,35 @@ export default function Navbar() {
           'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
           scrolled
             ? 'bg-white shadow-nav'
-            : 'bg-white/95 backdrop-blur-sm',
+            : 'bg-transparent',
         ].join(' ')}
       >
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-8">
-          <Logo />
+          {/* Logo: white text when transparent, brand colors when scrolled */}
+          <NavLink
+            to="/"
+            aria-label="HO Gas Factory — Home"
+            className="flex items-center gap-2 select-none"
+          >
+            <svg
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+              fill="none"
+              aria-hidden="true"
+              className="shrink-0"
+            >
+              <ellipse cx="16" cy="7" rx="9" ry="4" fill={transparent ? 'white' : 'var(--color-brand-blue)'} />
+              <rect x="7" y="7" width="18" height="16" fill={transparent ? 'white' : 'var(--color-brand-blue)'} />
+              <ellipse cx="16" cy="23" rx="9" ry="4" fill={transparent ? 'rgba(255,255,255,0.7)' : 'var(--color-brand-dark)'} />
+              <ellipse cx="16" cy="7" rx="9" ry="4" fill={transparent ? 'rgba(255,255,255,0.4)' : 'var(--color-brand-accent)'} opacity="0.6" />
+              <rect x="13" y="2" width="6" height="3" rx="1.5" fill={transparent ? 'rgba(255,255,255,0.6)' : 'var(--color-brand-dark)'} />
+            </svg>
+            <span className="font-display font-bold leading-none">
+              <span className={transparent ? 'text-white text-xl' : 'text-brand-blue text-xl'}>HO</span>
+              <span className={transparent ? 'text-white/80 text-lg' : 'text-brand-dark text-lg'}> Gas Factory</span>
+            </span>
+          </NavLink>
 
           {/* Desktop links */}
           <ul
@@ -208,7 +206,7 @@ export default function Navbar() {
           >
             {ROUTES.map((route) => (
               <li key={route.path}>
-                <DesktopNavLink to={route.path}>
+                <DesktopNavLink to={route.path} transparent={transparent}>
                   {t(route.labelKey)}
                 </DesktopNavLink>
               </li>
@@ -218,17 +216,21 @@ export default function Navbar() {
           {/* Right controls */}
           <div className="flex items-center gap-3">
             {/* CTA button — desktop only */}
-            <Button
-              as="a"
-              href="/contact"
-              size="sm"
-              className="hidden md:inline-flex"
-            >
-              {t('common.contactUs')}
-            </Button>
+            {transparent ? (
+              <a
+                href="/contact"
+                className="hidden md:inline-flex items-center justify-center gap-2 font-body font-medium text-sm px-4 py-2 rounded-md min-h-[44px] border-2 border-white text-white bg-transparent hover:bg-white/15 transition-all duration-200 select-none"
+              >
+                {t('common.contactUs')}
+              </a>
+            ) : (
+              <Button as="a" href="/contact" size="sm" className="hidden md:inline-flex">
+                {t('common.contactUs')}
+              </Button>
+            )}
 
             {/* Language toggle — visible on all sizes */}
-            <LanguageToggle />
+            <LanguageToggle transparent={transparent} />
 
             {/* Hamburger — mobile only */}
             <button
@@ -238,7 +240,12 @@ export default function Navbar() {
               aria-expanded={isOpen}
               aria-controls="mobile-drawer"
               onClick={() => setIsOpen((v) => !v)}
-              className="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-lg text-brand-dark hover:bg-brand-light transition-colors"
+              className={[
+                'md:hidden inline-flex items-center justify-center w-11 h-11 rounded-lg transition-colors',
+                transparent
+                  ? 'text-white hover:bg-white/10'
+                  : 'text-brand-dark hover:bg-brand-light',
+              ].join(' ')}
             >
               <MenuIcon open={isOpen} />
             </button>
@@ -274,7 +281,19 @@ export default function Navbar() {
       >
         {/* Drawer header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
-          <Logo />
+          <NavLink to="/" aria-label="HO Gas Factory — Home" className="flex items-center gap-2 select-none" onClick={closeDrawer}>
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true" className="shrink-0">
+              <ellipse cx="16" cy="7" rx="9" ry="4" fill="var(--color-brand-blue)" />
+              <rect x="7" y="7" width="18" height="16" fill="var(--color-brand-blue)" />
+              <ellipse cx="16" cy="23" rx="9" ry="4" fill="var(--color-brand-dark)" />
+              <ellipse cx="16" cy="7" rx="9" ry="4" fill="var(--color-brand-accent)" opacity="0.6" />
+              <rect x="13" y="2" width="6" height="3" rx="1.5" fill="var(--color-brand-dark)" />
+            </svg>
+            <span className="font-display font-bold leading-none">
+              <span className="text-brand-blue text-xl">HO</span>
+              <span className="text-brand-dark text-lg"> Gas Factory</span>
+            </span>
+          </NavLink>
           <button
             type="button"
             aria-label="Close menu"

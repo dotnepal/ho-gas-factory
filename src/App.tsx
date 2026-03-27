@@ -30,8 +30,6 @@ function RootLayout() {
         Skip to content
       </a>
       <Navbar />
-      {/* 64px spacer compensates for the fixed navbar height */}
-      <div className="h-16" aria-hidden="true" />
       <Outlet />
       <Footer />
     </>
