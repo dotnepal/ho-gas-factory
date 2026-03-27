@@ -14,7 +14,8 @@ export const ssgOptions: SsgOptions = {
   ),
   context: async (children) => {
     const { StaticRouter } = await import('react-router-dom/server')
-    return <StaticRouter location="/contact">{children}</StaticRouter>
+    const { withI18nProvider } = await import('../i18n/ssgContext')
+    return withI18nProvider(<StaticRouter location="/contact">{children}</StaticRouter>)
   },
 };
 

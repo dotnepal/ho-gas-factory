@@ -1,4 +1,6 @@
+import { useTranslation } from 'react-i18next'
 import type { SsgOptions } from 'vite-plugin-ssg/utils'
+import { Button, Card, Badge, SectionHeader } from '../components/ui'
 
 export const ssgOptions: SsgOptions = {
   slug: 'index',
@@ -14,23 +16,266 @@ export const ssgOptions: SsgOptions = {
   ),
   context: async (children) => {
     const { StaticRouter } = await import('react-router-dom/server')
-    return <StaticRouter location="/">{children}</StaticRouter>
+    const { withI18nProvider } = await import('../i18n/ssgContext')
+    return withI18nProvider(<StaticRouter location="/">{children}</StaticRouter>)
   },
 };
 
+// ─── Hero ──────────────────────────────────────────────────────────────────
+
+function HomeHero() {
+  const { t } = useTranslation()
+  return (
+    <section
+      aria-label="Hero"
+      className="relative overflow-hidden"
+      style={{
+        background:
+          'linear-gradient(135deg, var(--color-brand-dark) 0%, var(--color-brand-blue) 60%, var(--color-brand-accent) 100%)',
+        clipPath: 'polygon(0 0, 100% 0, 100% 90%, 0 100%)',
+        paddingBottom: 'clamp(4rem, 10vw, 7rem)',
+      }}
+    >
+      {/* Dot-grid texture */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage:
+            'radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px)',
+          backgroundSize: '28px 28px',
+        }}
+      />
+      {/* Radial glow */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-32 right-0 w-[500px] h-[500px] rounded-full"
+        style={{
+          background:
+            'radial-gradient(circle, rgba(59,130,246,0.3) 0%, transparent 70%)',
+        }}
+      />
+
+      <div className="relative z-10 max-w-6xl mx-auto px-6 pt-24 pb-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-bold text-white leading-tight tracking-tight">
+            {t('home.hero.tagline')}
+          </h1>
+          <p className="mt-5 text-base sm:text-lg font-body text-white/75 max-w-lg leading-relaxed">
+            {t('home.hero.subtitle')}
+          </p>
+          <div className="mt-8 flex flex-wrap gap-4">
+            <Button as="a" href="/contact" size="lg">
+              {t('home.hero.cta.contact')}
+            </Button>
+            <Button as="a" href="/products" variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-brand-blue">
+              {t('home.hero.cta.products')}
+            </Button>
+          </div>
+        </div>
+
+        {/* Hero image placeholder */}
+        <div className="hidden lg:flex justify-center">
+          <img
+            src="https://placehold.co/520x380/1e3a5f/ffffff?text=HO+Gas+Factory"
+            alt="HO Gas Factory facility"
+            className="rounded-2xl shadow-2xl"
+            width={520}
+            height={380}
+          />
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// ─── Gas Highlights ────────────────────────────────────────────────────────
+
+const GAS_ICONS = {
+  oxygen: (
+    <svg viewBox="0 0 40 40" fill="none" className="w-10 h-10" aria-hidden="true">
+      <circle cx="20" cy="20" r="18" stroke="currentColor" strokeWidth="2" />
+      <text x="20" y="26" textAnchor="middle" fontSize="16" fill="currentColor" fontWeight="700">O₂</text>
+    </svg>
+  ),
+  nitrogen: (
+    <svg viewBox="0 0 40 40" fill="none" className="w-10 h-10" aria-hidden="true">
+      <circle cx="20" cy="20" r="18" stroke="currentColor" strokeWidth="2" />
+      <text x="20" y="26" textAnchor="middle" fontSize="16" fill="currentColor" fontWeight="700">N₂</text>
+    </svg>
+  ),
+  hydrogen: (
+    <svg viewBox="0 0 40 40" fill="none" className="w-10 h-10" aria-hidden="true">
+      <circle cx="20" cy="20" r="18" stroke="currentColor" strokeWidth="2" />
+      <text x="20" y="26" textAnchor="middle" fontSize="16" fill="currentColor" fontWeight="700">H₂</text>
+    </svg>
+  ),
+}
+
+function GasHighlights() {
+  const { t } = useTranslation()
+  const gases = ['oxygen', 'nitrogen', 'hydrogen'] as const
+
+  return (
+    <section aria-labelledby="gases-heading" className="py-20 px-6 bg-white">
+      <div className="max-w-6xl mx-auto">
+        <SectionHeader
+          eyebrow={t('common.learnMore')}
+          title={t('home.gas.sectionTitle')}
+          align="center"
+          className="mb-12"
+        />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {gases.map((gas) => (
+            <Card key={gas} hover as="article" className="flex flex-col items-start gap-4">
+              <div className="p-3 rounded-xl bg-brand-light text-brand-blue">
+                {GAS_ICONS[gas]}
+              </div>
+              <div>
+                <h3 className="text-xl font-display font-bold text-brand-dark">
+                  {t(`home.gas.${gas}.title`)}
+                </h3>
+                <p className="mt-2 font-body text-brand-steel leading-relaxed">
+                  {t(`home.gas.${gas}.desc`)}
+                </p>
+              </div>
+              <Button as="a" href="/products" variant="ghost" size="sm" className="mt-auto -ml-2">
+                {t('home.gas.learnMore')} →
+              </Button>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// ─── Services Strip ────────────────────────────────────────────────────────
+
+function ServicesStrip() {
+  const { t } = useTranslation()
+  const services = [
+    { key: 'rent', icon: '🔄' },
+    { key: 'sale', icon: '🛒' },
+    { key: 'refilling', icon: '⚡' },
+    { key: 'bulkOrders', icon: '📦' },
+    { key: 'delivery', icon: '🚚' },
+  ] as const
+
+  return (
+    <section
+      aria-labelledby="services-heading"
+      className="py-12 px-6"
+      style={{ background: 'var(--color-brand-light)' }}
+    >
+      <div className="max-w-6xl mx-auto">
+        <SectionHeader
+          title={t('home.services.sectionTitle')}
+          align="center"
+          className="mb-10"
+        />
+        <div className="flex flex-wrap justify-center gap-4">
+          {services.map(({ key, icon }) => (
+            <Badge key={key} variant="primary" className="gap-2 px-5 py-3 text-base">
+              <span aria-hidden="true">{icon}</span>
+              {t(`home.services.${key}`)}
+            </Badge>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// ─── Trust Gallery ─────────────────────────────────────────────────────────
+
+const TRUST_IMAGES = [
+  {
+    src: 'https://placehold.co/400x280/1e3a5f/ffffff?text=Hospital+Partner',
+    alt: 'Hospital partner facility',
+  },
+  {
+    src: 'https://placehold.co/400x280/1e40af/ffffff?text=Certified+Storage',
+    alt: 'Certified gas storage facility',
+  },
+  {
+    src: 'https://placehold.co/400x280/3b82f6/ffffff?text=Safe+Delivery',
+    alt: 'Safe gas delivery operations',
+  },
+] as const
+
+function TrustGallery() {
+  const { t } = useTranslation()
+  return (
+    <section aria-label="Trusted Partner" className="py-20 px-6 bg-white">
+      <div className="max-w-6xl mx-auto">
+        <SectionHeader
+          eyebrow={t('common.learnMore')}
+          title={t('home.trust.sectionTitle')}
+          align="center"
+          className="mb-12"
+        />
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          {TRUST_IMAGES.map((img) => (
+            <Card key={img.src} flush hover as="figure">
+              <img
+                src={img.src}
+                alt={img.alt}
+                width={400}
+                height={280}
+                className="w-full h-52 object-cover"
+              />
+            </Card>
+          ))}
+        </div>
+        <p className="mt-10 text-center font-body text-lg font-semibold text-brand-dark">
+          {t('home.trust.tagline')}
+        </p>
+      </div>
+    </section>
+  )
+}
+
+// ─── CTA Banner ────────────────────────────────────────────────────────────
+
+function CTABanner() {
+  const { t } = useTranslation()
+  return (
+    <section
+      aria-label="Call to action"
+      className="py-20 px-6 text-center"
+      style={{
+        background:
+          'linear-gradient(135deg, var(--color-brand-dark) 0%, var(--color-brand-blue) 100%)',
+      }}
+    >
+      <h2 className="text-3xl sm:text-4xl font-display font-bold text-white">
+        {t('home.cta.title')}
+      </h2>
+      <div className="mt-8">
+        <Button
+          as="a"
+          href="/contact"
+          size="lg"
+          className="bg-white text-brand-blue hover:bg-brand-light border-0 shadow-lg"
+        >
+          {t('home.cta.button')}
+        </Button>
+      </div>
+    </section>
+  )
+}
+
+// ─── Page ──────────────────────────────────────────────────────────────────
+
 export default function HomePage() {
   return (
-    <main id="main-content" className="min-h-screen">
-      <section className="flex items-center justify-center h-96 bg-brand-light">
-        <div className="text-center">
-          <h1 className="text-4xl font-display font-bold text-brand-blue mb-4">
-            HO Gas Factory
-          </h1>
-          <p className="text-lg font-body text-brand-steel">
-            Reliable Gas Supply for Medical &amp; Industrial Use
-          </p>
-        </div>
-      </section>
+    <main id="main-content">
+      <HomeHero />
+      <GasHighlights />
+      <ServicesStrip />
+      <TrustGallery />
+      <CTABanner />
     </main>
   )
 }

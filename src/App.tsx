@@ -1,14 +1,24 @@
-import { Suspense } from 'react'
+import { Suspense, useEffect } from 'react'
 import {
   createBrowserRouter,
   RouterProvider,
   Outlet,
   ScrollRestoration,
 } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { ROUTES } from './routes'
+import Navbar from './components/layout/Navbar'
+import Footer from './components/layout/Footer'
 
-// ─── Minimal layout shell (Navbar + Footer added in F-004/F-005) ───────────
+// ─── Root layout shell ─────────────────────────────────────────────────────
 function RootLayout() {
+  const { i18n } = useTranslation()
+
+  // Keep <html lang="..."> in sync with the active language
+  useEffect(() => {
+    document.documentElement.lang = i18n.language.startsWith('ne') ? 'ne' : 'en'
+  }, [i18n.language])
+
   return (
     <>
       <ScrollRestoration />
@@ -19,7 +29,11 @@ function RootLayout() {
       >
         Skip to content
       </a>
+      <Navbar />
+      {/* 64px spacer compensates for the fixed navbar height */}
+      <div className="h-16" aria-hidden="true" />
       <Outlet />
+      <Footer />
     </>
   )
 }

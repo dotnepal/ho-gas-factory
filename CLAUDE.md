@@ -306,6 +306,8 @@ For each cylinder size, display:
 **Phase 5:** Deployment and launch
 **Phase 6:** Post-launch optimizations and updates
 
+After every feature has been implemented. Run npm run build and ensure that everything is functional. Elaborate your answer. Wait for approval for next feature.
+
 ---
 
 ### Workflow Orchestration
@@ -358,6 +360,22 @@ For each cylinder size, display:
 - **Simplicity First**: Make every chagne as simple as possible. Impact minimal code.
 - **No Laziness**: Find root cuases. No temporary fixes. Senior developer standards.
 - **Minimal Impact**: Changes should only touch what's necessary. Avoid introducing bugs.
+
+## Claude Model usage
+- Use model Sonnet for code writes
+- Use model Haiku for quick tasks, answers
+- Use model opusplan for complex logic reasoning
+
 ---
+
+## Tooling for shell interactions
+- Is it about finding FILES? use 'fd'
+- Is it about finding TEXT/strings? use 'rg'
+- Is it about finding CODE STRUCTURE? use 'ast-grep'
+- Is it about SELECTING from multiple results? pipe to 'fzf'
+- Is it about interacting with JSON? use 'jq'
+- Is it about interacting with YAML or XML? use 'yq'
+
+
 
 *This specification document outlines the complete plan for the gas factory website. Any updates or changes should be documented and approved before implementation.*

@@ -129,33 +129,48 @@
 - [x] Set up ESLint + Prettier (0 errors, 0 warnings)
 > Notes: React upgraded to v19 (required by vite-plugin-ssg's `prerenderToNodeStream`). Vite pinned to 5.4.21, @vitejs/plugin-react pinned to 4.3.4. SSG slugs must be flat (no `/`). ssgOptions must close with `};`.
 
-### F-002: i18n (EN/NP Language Toggle)
-- [ ] Install `react-i18next` + `i18next` + `i18next-browser-languagedetector`
-- [ ] Create `src/i18n/en.json` with all English strings
-- [ ] Create `src/i18n/np.json` with all Nepali strings
-- [ ] Language toggle button in Navbar (persists to localStorage)
-- [ ] All page text wrapped in `t()` / `<Trans>` calls
+### F-002: i18n (EN/NP Language Toggle) ✓ COMPLETE (2026-03-27)
+- [x] Install `react-i18next` + `i18next` + `i18next-browser-languagedetector`
+- [x] Create `src/i18n/en.json` with all English strings (nav, home, about, products, contact, faq, footer, common)
+- [x] Create `src/i18n/np.json` with all Nepali strings (full Devanagari translations)
+- [x] Language toggle button (`src/components/ui/LanguageToggle.tsx`) — persists to localStorage via `ho-gas-lang` key
+- [x] HomePage text wrapped in `t()` calls; all other pages ready (stubs resolved in their respective F-tasks)
+- [x] `<html lang>` attribute synced to active language via `useEffect` in `RootLayout`
+- [x] SSG static prerender fixed with `I18nextProvider` wrapper (`src/i18n/ssgContext.tsx`) — `t()` resolves to English during build
+> Notes: Translations bundled into JS (no HTTP fetch). Language detection order: localStorage → navigator. Key `ho-gas-lang` in localStorage. LanguageToggle component ready for Navbar (F-004).
 
-### F-003: Design System / Theme
-- [ ] Tailwind config: `brand-blue: #1E40AF`, `brand-light: #EFF6FF`, accent colors
-- [ ] Font pair: Sora (display) + DM Sans (body) via Google Fonts
-- [ ] CSS variables in `src/index.css`
-- [ ] Reusable components: `Button.tsx`, `Card.tsx`, `Badge.tsx`, `SectionHeader.tsx`, `PageHero.tsx`
+### F-003: Design System / Theme ✓ COMPLETE (2026-03-27)
+- [x] Tailwind config: brand tokens in `src/index.css` `@theme` — `brand-blue`, `brand-light`, `brand-dark`, `brand-accent`, `brand-steel`
+- [x] Font pair: Sora (display) + DM Sans (body) via Google Fonts `<link preconnect>` in `index.html`
+- [x] CSS variables in `src/index.css` — shadows, radii, keyframes, `animate-on-scroll`
+- [x] `Button.tsx` — primary/secondary/outline/ghost variants; sm/md/lg sizes; polymorphic (`as="a"` for links)
+- [x] `Card.tsx` — white card with brand shadow; optional hover-lift (`hover` prop); `as` prop for semantic elements; `flush` prop for full-bleed content
+- [x] `Badge.tsx` — pill component; default/primary/outline/success/warning variants; `interactive` prop renders as `<button>` with `aria-pressed`
+- [x] `SectionHeader.tsx` — h2 + accent bar + optional eyebrow label + optional subtitle; left/center/right alignment
+- [x] `PageHero.tsx` — full-width page banner; brand-dark → brand-blue gradient; dot-grid texture; radial glow; diagonal clip-path bottom edge
+- [x] `src/components/ui/index.ts` — barrel export for clean imports
+- [x] `HomePage.tsx` updated to use all components as live smoke test (hero, gas cards, services strip, CTA banner)
+> Notes: SSG scanner uses regex requiring `ssgOptions` to close with `};` (semicolon on own line). All pages updated to use `withI18nProvider` in SSG context.
 
-### F-004: Navbar & Header
-- [ ] Sticky transparent-on-scroll navbar (shadow appears on scroll)
-- [ ] Logo + nav links (Home, About, Products, Contact, FAQ)
-- [ ] Mobile hamburger menu with slide-in drawer
-- [ ] EN/NP toggle button
-- [ ] Active route highlight using `NavLink`
+### F-004: Navbar & Header ✓ COMPLETE (2026-03-27)
+- [x] Fixed navbar (`position: fixed; top: 0; z-50`) — `bg-white/95 backdrop-blur` at rest, `bg-white shadow-nav` on scroll via `useScrolled` hook
+- [x] Logo: SVG cylinder icon + "HO" (brand-blue) + "Gas Factory" (brand-dark) — links to home
+- [x] Desktop nav links via `NavLink` (react-router-dom) — animated underline on hover; active link shows full underline + brand-blue color
+- [x] Mobile hamburger button (`aria-expanded`, `aria-controls`) → slide-in drawer from right (width 72/288px)
+- [x] Drawer: backdrop overlay, close button, focus trap (Tab cycles within), ESC key closes, body scroll lock
+- [x] `LanguageToggle` wired in both desktop right-side and drawer footer
+- [x] `src/hooks/useScrolled.ts` — passive scroll listener, initialises on mount
+- [x] `src/App.tsx` updated: `<Navbar />` + 64px spacer `<div aria-hidden>` for fixed offset
+> Notes: Navbar renders client-side via React hydration (not in SSG prerender) — layout shell is intentionally client-only; page content is prerendered for SEO.
 
-### F-005: Footer
-- [ ] 3-column grid layout
-  - Left: FAQ link, phone, email
-  - Middle: Privacy Policy, Terms of Service, Sitemap links
-  - Right: Google Map embed (small static map)
-- [ ] Mobile: 3-col → stacked single column
-- [ ] Copyright line
+### F-005: Footer ✓ COMPLETE (2026-03-27)
+- [x] 3-column grid layout
+  - Left: Logo, contact details (phone, email, address)
+  - Middle: Legal links (Privacy, Terms, Sitemap) + Quick Links (FAQ, Contact, Products)
+  - Right: Google Map iframe embed (Kathmandu, Nepal)
+- [x] Mobile: 3-col → stacked single column
+- [x] Copyright line with year interpolation (`{{year}}`)
+> Notes: Footer uses `bg-brand-dark` with white text. Logo uses white/accent variant for dark bg. Map iframe uses no-API-key embed URL for Kathmandu. Reuses `contact.info.*` i18n keys for phone/email/address to avoid duplication.
 
 ### F-006: Home Page
 - [ ] Hero section: tagline, sub-copy, two CTAs (`/contact`, `/products`), hero image
