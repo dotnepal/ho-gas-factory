@@ -6,6 +6,30 @@ import { useScrolled } from '../../hooks/useScrolled'
 import LanguageToggle from '../ui/LanguageToggle'
 import Button from '../ui/Button'
 
+// ─── Logo ──────────────────────────────────────────────────────────────────
+
+function Logo({ transparent = false, onClick }: { transparent?: boolean; onClick?: () => void }) {
+  const fills = transparent
+    ? { body: 'white', bottom: 'rgba(255,255,255,0.7)', cap: 'rgba(255,255,255,0.6)', glow: 'rgba(255,255,255,0.4)' }
+    : { body: 'var(--color-brand-blue)', bottom: 'var(--color-brand-dark)', cap: 'var(--color-brand-dark)', glow: 'var(--color-brand-accent)' }
+
+  return (
+    <NavLink to="/" aria-label="HO Gas Factory — Home" className="flex items-center gap-2 select-none" onClick={onClick}>
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true" className="shrink-0">
+        <ellipse cx="16" cy="7" rx="9" ry="4" fill={fills.body} />
+        <rect x="7" y="7" width="18" height="16" fill={fills.body} />
+        <ellipse cx="16" cy="23" rx="9" ry="4" fill={fills.bottom} />
+        <ellipse cx="16" cy="7" rx="9" ry="4" fill={fills.glow} opacity="0.6" />
+        <rect x="13" y="2" width="6" height="3" rx="1.5" fill={fills.cap} />
+      </svg>
+      <span className="font-display font-bold leading-none">
+        <span className={transparent ? 'text-white text-xl' : 'text-brand-blue text-xl'}>HO</span>
+        <span className={transparent ? 'text-white/80 text-lg' : 'text-brand-dark text-lg'}> Gas Factory</span>
+      </span>
+    </NavLink>
+  )
+}
+
 // ─── Desktop nav link ──────────────────────────────────────────────────────
 
 function DesktopNavLink({
@@ -173,31 +197,7 @@ export default function Navbar() {
         ].join(' ')}
       >
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-8">
-          {/* Logo: white text when transparent, brand colors when scrolled */}
-          <NavLink
-            to="/"
-            aria-label="HO Gas Factory — Home"
-            className="flex items-center gap-2 select-none"
-          >
-            <svg
-              width="32"
-              height="32"
-              viewBox="0 0 32 32"
-              fill="none"
-              aria-hidden="true"
-              className="shrink-0"
-            >
-              <ellipse cx="16" cy="7" rx="9" ry="4" fill={transparent ? 'white' : 'var(--color-brand-blue)'} />
-              <rect x="7" y="7" width="18" height="16" fill={transparent ? 'white' : 'var(--color-brand-blue)'} />
-              <ellipse cx="16" cy="23" rx="9" ry="4" fill={transparent ? 'rgba(255,255,255,0.7)' : 'var(--color-brand-dark)'} />
-              <ellipse cx="16" cy="7" rx="9" ry="4" fill={transparent ? 'rgba(255,255,255,0.4)' : 'var(--color-brand-accent)'} opacity="0.6" />
-              <rect x="13" y="2" width="6" height="3" rx="1.5" fill={transparent ? 'rgba(255,255,255,0.6)' : 'var(--color-brand-dark)'} />
-            </svg>
-            <span className="font-display font-bold leading-none">
-              <span className={transparent ? 'text-white text-xl' : 'text-brand-blue text-xl'}>HO</span>
-              <span className={transparent ? 'text-white/80 text-lg' : 'text-brand-dark text-lg'}> Gas Factory</span>
-            </span>
-          </NavLink>
+          <Logo transparent={transparent} />
 
           {/* Desktop links */}
           <ul
@@ -216,18 +216,15 @@ export default function Navbar() {
           {/* Right controls */}
           <div className="flex items-center gap-3">
             {/* CTA button — desktop only */}
-            {transparent ? (
-              <a
-                href="/contact"
-                className="hidden md:inline-flex items-center justify-center gap-2 font-body font-medium text-sm px-4 py-2 rounded-md min-h-[44px] border-2 border-white text-white bg-transparent hover:bg-white/15 transition-all duration-200 select-none"
-              >
-                {t('common.contactUs')}
-              </a>
-            ) : (
-              <Button as="a" href="/contact" size="sm" className="hidden md:inline-flex">
-                {t('common.contactUs')}
-              </Button>
-            )}
+            <Button
+              as="a"
+              href="/contact"
+              size="sm"
+              variant={transparent ? 'white-outline' : 'primary'}
+              className="hidden md:inline-flex"
+            >
+              {t('common.contactUs')}
+            </Button>
 
             {/* Language toggle — visible on all sizes */}
             <LanguageToggle transparent={transparent} />
@@ -281,19 +278,7 @@ export default function Navbar() {
       >
         {/* Drawer header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
-          <NavLink to="/" aria-label="HO Gas Factory — Home" className="flex items-center gap-2 select-none" onClick={closeDrawer}>
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true" className="shrink-0">
-              <ellipse cx="16" cy="7" rx="9" ry="4" fill="var(--color-brand-blue)" />
-              <rect x="7" y="7" width="18" height="16" fill="var(--color-brand-blue)" />
-              <ellipse cx="16" cy="23" rx="9" ry="4" fill="var(--color-brand-dark)" />
-              <ellipse cx="16" cy="7" rx="9" ry="4" fill="var(--color-brand-accent)" opacity="0.6" />
-              <rect x="13" y="2" width="6" height="3" rx="1.5" fill="var(--color-brand-dark)" />
-            </svg>
-            <span className="font-display font-bold leading-none">
-              <span className="text-brand-blue text-xl">HO</span>
-              <span className="text-brand-dark text-lg"> Gas Factory</span>
-            </span>
-          </NavLink>
+          <Logo onClick={closeDrawer} />
           <button
             type="button"
             aria-label="Close menu"

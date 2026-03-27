@@ -9,7 +9,8 @@ export function useScrolled(threshold = 20): boolean {
 
   useEffect(() => {
     function onScroll() {
-      setScrolled(window.scrollY > threshold)
+      const next = window.scrollY > threshold
+      setScrolled((prev) => (prev === next ? prev : next))
     }
 
     // Set initial value on mount (handles page load at a scrolled position)

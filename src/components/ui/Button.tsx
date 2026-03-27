@@ -1,6 +1,6 @@
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from 'react'
 
-type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost'
+type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'white-outline'
 type ButtonSize = 'sm' | 'md' | 'lg'
 
 const VARIANT_CLASSES: Record<ButtonVariant, string> = {
@@ -12,6 +12,8 @@ const VARIANT_CLASSES: Record<ButtonVariant, string> = {
     'border-2 border-brand-blue text-brand-blue bg-transparent hover:bg-brand-blue hover:text-white',
   ghost:
     'text-brand-blue bg-transparent hover:bg-brand-light',
+  'white-outline':
+    'border-2 border-white text-white bg-transparent hover:bg-white/15',
 }
 
 const SIZE_CLASSES: Record<ButtonSize, string> = {
