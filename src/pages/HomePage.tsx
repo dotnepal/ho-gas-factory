@@ -69,7 +69,7 @@ function HomeHero() {
             <Button as="a" href="/contact" size="lg">
               {t('home.hero.cta.contact')}
             </Button>
-            <Button as="a" href="/products" variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-brand-blue">
+            <Button as="a" href="/products" variant="outline" size="lg" className="border-white text-white hover:bg-green hover:text-brand-blue">
               {t('home.hero.cta.products')}
             </Button>
           </div>
@@ -271,7 +271,7 @@ function CTABanner() {
             as="a"
             href="/contact"
             size="lg"
-            className="bg-white text-brand-blue hover:bg-brand-light border-0 shadow-lg"
+            className="text-brand-blue hover:bg-brand-light border-0 shadow-lg bg-teal-700 hover:bg-teal-900"
           >
             {t('home.cta.button')}
           </Button>
