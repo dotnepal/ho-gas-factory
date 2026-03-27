@@ -14,6 +14,31 @@
 - Pages: Home, About, Products, Contact, FAQ (accordion style)
 
 ---
+## Tech Stack (Confirmed)
+- **Runtime:** React 18 + TypeScript
+- **Build:** Vite + `vite-plugin-ssg` (static site generation)
+- **Styling:** Tailwind CSS with custom brand tokens (`brand-blue: #1E40AF`, `brand-light: #EFF6FF`)
+- **Fonts:** Sora (display) + DM Sans (body) — non-generic per SKILLS.md
+- **Routing:** react-router-dom v6
+- **i18n:** react-i18next + i18next (EN/NP toggle, persisted to localStorage)
+- **Forms:** react-hook-form (client-side validation)
+- **Hosting:** Cloudflare Pages (with Pages Functions for form submission)
+
+---
+## Page Wireframes (Summary)
+See `tasks/1-FEATURES.md` for full ASCII wireframes.
+
+**Global layout:** Sticky Navbar → Page Content → 3-col Footer (FAQ+Contact | Links | Map)
+
+| Page | Key Sections |
+|------|-------------|
+| Home | Hero split, Gas highlights 3-col, Services strip, Trust gallery, CTA banner |
+| About | Story 2-col, Team cards, Service area badges, Why-us 4-col |
+| Products | Gas type tabs (Oxygen/Nitrogen/Hydrogen), Cylinder table, Services 3-col |
+| Contact | Split: Form left + Info+Map right |
+| FAQ | Category filter pills + Accordion |
+
+---
 ## Footer Section
 - It has 3 sections (left, middle, right)
 

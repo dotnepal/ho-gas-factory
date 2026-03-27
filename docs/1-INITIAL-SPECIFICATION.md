@@ -179,7 +179,7 @@ For each cylinder size, display:
     - Rent/Sale Preference
     - Message (optional)
 
-### 4.1 Contact Methods
+### 4.2 Contact Methods
 
 - Contact form (primary lead capture)
 - Phone number display
@@ -226,12 +226,18 @@ For each cylinder size, display:
 - Easy navigation
 - Clear call-to-action elements
 
-### 7.2 Technology Stack (To Be Determined)
+### 7.2 Technology Stack (Confirmed)
 
-- Frontend framework (React or static HTML/CSS, Static Site Generator, SSG)
-- Hosting platform (Cloudflare pages)
-- Email service for contact form submissions (cloudflare integrations)
-- Domain and SSL certificate (cloudflare integrations)
+- **Runtime:** React 18 + TypeScript
+- **Build:** Vite + `vite-plugin-ssg` (static site generation)
+- **Styling:** Tailwind CSS with custom brand tokens
+- **Fonts:** Sora (display) + DM Sans (body)
+- **Routing:** react-router-dom v6
+- **i18n:** react-i18next + i18next
+- **Forms:** react-hook-form
+- **Hosting:** Cloudflare Pages
+- **Form submission:** Cloudflare Pages Functions (Web3Forms as fallback)
+- **Domain & SSL:** Cloudflare
 
 ### 7.3 Accessibility & SEO
 
@@ -245,8 +251,8 @@ For each cylinder size, display:
 
 ## 8. Development Phases
 
-**Phase 1:** Design mockups and approval
-**Phase 2:** Frontend development (HTML, CSS, JavaScript/React)
+**Phase 1:** Design mockups and approval ✓ Complete
+**Phase 2:** Frontend development (React + Vite + Tailwind) ← Current
 **Phase 3:** Backend integration (contact form, email notifications)
 **Phase 4:** Testing and QA
 **Phase 5:** Deployment and launch
@@ -254,11 +260,19 @@ For each cylinder size, display:
 
 ---
 
-## 9. Approval & Sign-off
+## 9. Wireframes
 
-**Project Status:** Specification Approved ✓
+ASCII wireframes and full feature breakdown are in `tasks/1-FEATURES.md`.
 
-**Ready for:** Design Mockups / Development
+**Pages covered:** Global Layout, Home, About, Products/Services, Contact, FAQ
+
+---
+
+## 10. Approval & Sign-off
+
+**Project Status:** Phase 1 Complete ✓ — Ready for Phase 2 (Frontend Implementation)
+
+**Feature tasks:** See `tasks/1-FEATURES.md` (F-001 through F-014)
 
 ---
 
