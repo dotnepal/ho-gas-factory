@@ -153,15 +153,15 @@
 > Notes: SSG scanner uses regex requiring `ssgOptions` to close with `};` (semicolon on own line). All pages updated to use `withI18nProvider` in SSG context.
 
 ### F-004: Navbar & Header ✓ COMPLETE (2026-03-27)
-- [x] Fixed navbar (`position: fixed; top: 0; z-50`) — `bg-white/95 backdrop-blur` at rest, `bg-white shadow-nav` on scroll via `useScrolled` hook
-- [x] Logo: SVG cylinder icon + "HO" (brand-blue) + "Gas Factory" (brand-dark) — links to home
-- [x] Desktop nav links via `NavLink` (react-router-dom) — animated underline on hover; active link shows full underline + brand-blue color
+- [x] Fixed navbar (`position: fixed; top: 0; z-50`) — transparent at rest (over hero), `bg-white shadow-nav` on scroll via `useScrolled` hook
+- [x] Logo: SVG cylinder icon + "HO" (brand-blue) + "Gas Factory" (brand-dark) — links to home; white variant when navbar is transparent
+- [x] Desktop nav links via `NavLink` (react-router-dom) — animated underline on hover; active link shows full underline + brand-blue color; white when transparent
 - [x] Mobile hamburger button (`aria-expanded`, `aria-controls`) → slide-in drawer from right (width 72/288px)
 - [x] Drawer: backdrop overlay, close button, focus trap (Tab cycles within), ESC key closes, body scroll lock
-- [x] `LanguageToggle` wired in both desktop right-side and drawer footer
-- [x] `src/hooks/useScrolled.ts` — passive scroll listener, initialises on mount
-- [x] `src/App.tsx` updated: `<Navbar />` + 64px spacer `<div aria-hidden>` for fixed offset
-> Notes: Navbar renders client-side via React hydration (not in SSG prerender) — layout shell is intentionally client-only; page content is prerendered for SEO.
+- [x] `LanguageToggle` wired in both desktop right-side and drawer footer; adapts to transparent/solid state
+- [x] `src/hooks/useScrolled.ts` — passive scroll listener, initialises on mount; guards no-op state updates
+- [x] Hero pages extend behind transparent navbar (no spacer div); hero content padding (`pt-24`) clears navbar height
+> Notes: Navbar transparent mode: logo/links/CTA all white. On scroll past 20px: switches to white bg + shadow. `Logo` extracted as reusable sub-component with `transparent` prop. `Button` has `white-outline` variant for transparent CTA. `useScrolled` uses functional updater to skip re-renders when scroll boolean unchanged.
 
 ### F-005: Footer ✓ COMPLETE (2026-03-27)
 - [x] 3-column grid layout
@@ -238,36 +238,36 @@
 
 > **Dependency:** F-004 (Navbar & Header) delivers the infrastructure. F-015 tracks the business spec requirements from CLAUDE.md §3.1.
 
-### F-011: Accessibility & SEO
-- [ ] ARIA labels on all interactive elements
-- [ ] WCAG 4.5:1 contrast verified
-- [ ] `<meta>` tags per page (title, description, OG)
-- [ ] Semantic HTML throughout
-- [ ] `alt` text on all images
-- [ ] `lang` attribute switches with i18n (`en` / `ne`)
-- [ ] `robots.txt` + `sitemap.xml`
+### F-011: Accessibility & SEO ✓ COMPLETE (2026-03-27)
+- [x] ARIA labels on all interactive elements
+- [x] WCAG 4.5:1 contrast verified — all brand color pairs pass AA; brand-dark/blue on white exceed AAA (7:1+)
+- [x] `<meta>` tags per page (title, description, OG)
+- [x] Semantic HTML throughout — `<main>`, `<section aria-label>`, `<aside>`, `<article>`, `<figure>`, `role="tablist/tab/tabpanel"`, `role="region"`, `role="alert"` audited across all pages
+- [x] `alt` text on all images — all `<img>` tags carry descriptive alt text; decorative SVGs use `aria-hidden="true"`
+- [x] `lang` attribute switches with i18n (`en` / `ne`)
+- [x] `public/robots.txt` — corrected domain to `hogasfactory.com.np`; `public/sitemap.xml` created with all 5 routes and priorities
 
-### F-012: Animations & Polish
-- [ ] Scroll-triggered fade-in + slide-up (Intersection Observer)
-- [ ] Staggered card entrance (CSS delay per index)
-- [ ] Hover lift on cards (`translateY(-4px)`)
-- [ ] Smooth page transition (fade)
-- [ ] Accordion height transition (no `display:none`)
-- [ ] Navbar shadow on scroll
+### F-012: Animations & Polish ✓ COMPLETE (2026-03-27)
+- [x] Scroll-triggered fade-in + slide-up — `useScrollAnimation` hook (`src/hooks/useScrollAnimation.ts`) uses IntersectionObserver; CSS `fadeSlideUp` keyframe; applied to all sections in Home, About, Products pages; respects `prefers-reduced-motion`
+- [x] Staggered card entrance — `useScrollAnimation({ stagger: N })` queries `.animate-on-scroll` children and applies incremental `animation-delay` (80–120 ms per index); applied to gas cards, service cards, team cards, trust gallery, service area badges
+- [x] Hover lift on cards (`translateY(-4px)`) — `Card` component `hover` prop; applied to gas highlight cards, trust gallery, team cards, why-choose-us grid, products services cards
+- [x] Smooth page transition (fade) — `pageFadeIn` CSS keyframe; `.page-transition` class added to `<main>` in all 5 pages; triggers on every route change (component remount)
+- [x] Accordion height transition (no `display:none`) — CSS `grid-template-rows: 0fr→1fr` (done in F-010)
+- [x] Navbar shadow on scroll — `useScrolled` hook + `shadow-nav` token (done in F-004)
 
-### F-013: Responsive Design
-- [ ] Mobile-first breakpoints (sm:640, md:768, lg:1024, xl:1280)
-- [ ] Cylinder table → card stack on mobile
-- [ ] Footer 3-col → stacked on mobile
-- [ ] Hero 2-col → stacked on mobile
-- [ ] Touch targets min 44×44px
+### F-013: Responsive Design ✓ COMPLETE (2026-03-27)
+- [x] Mobile-first breakpoints (sm:640, md:768, lg:1024, xl:1280)
+- [x] Cylinder table → card stack on mobile — `md:hidden` card list / `hidden md:block` table dual render; each card shows size badge, capacity, weight, availability pills, contact CTA
+- [x] Footer 3-col → stacked on mobile (done in F-005)
+- [x] Hero 2-col → stacked on mobile (done in F-006/F-007 via `hidden lg:block`)
+- [x] Touch targets min 44×44px (Button/Badge/LanguageToggle all have `min-h-[44px] min-w-[44px]`)
 
-### F-014: Deployment Setup
-- [ ] `public/_redirects`: `/* /index.html 200`
-- [ ] `wrangler.toml` skeleton
+### F-014: Deployment Setup ✓ PARTIAL
+- [x] `public/_redirects`: `/* /index.html 200`
+- [x] `wrangler.toml` skeleton
 - [ ] GitHub Actions: build → Cloudflare Pages on push to `main`
 - [ ] `VITE_FORM_ENDPOINT` env var
-- [ ] Verify clean `dist/` build output
+- [x] Verify clean `dist/` build output (`npm run build` passes, SSG generates all pages)
 
 ---
 

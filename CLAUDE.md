@@ -4,7 +4,7 @@
 
 **Purpose:** Build brand trust, showcase services, and generate sales leads
 
-**Current State:** Phase 2 in progress — F-001 through F-010 complete. F-011 (Accessibility) partial. F-012 (Animations) not started. F-013 (Responsive) mostly done. F-014 (Deploy) partial.
+**Current State:** Phase 2 in progress — F-001 through F-013 complete, F-015 complete. F-014 (Deploy) partial: _redirects + wrangler.toml done; GitHub Actions CI/CD + VITE_FORM_ENDPOINT pending.
 
 **Repository Contents (as of 2026-03-27):**
 - `CLAUDE.md` — project specification and workflow rules (this file)
@@ -19,12 +19,15 @@
 - `src/App.tsx` — root router with RootLayout (Navbar + Footer + Suspense)
 - `src/index.css` — Tailwind v4 @theme brand tokens + global styles
 - `src/routes.ts` — route definitions for react-router-dom v6
-- `src/pages/` — HomePage, AboutPage (full), ProductsPage/ContactPage/FAQPage (stubs)
-- `src/components/layout/` — Navbar.tsx, Footer.tsx
-- `src/components/ui/` — Button, Card, Badge, PageHero, SectionHeader, LanguageToggle, index.ts
+- `src/pages/` — HomePage, AboutPage, ProductsPage, ContactPage, FAQPage (all complete)
+- `src/components/layout/` — Navbar.tsx (transparent hero mode + white-on-scroll), Footer.tsx
+- `src/components/ui/` — Button (white-outline variant added), Card, Badge, PageHero, SectionHeader, LanguageToggle, index.ts
 - `src/hooks/useScrolled.ts` — scroll detection hook
+- `src/hooks/useScrollAnimation.ts` — IntersectionObserver hook for scroll-triggered animations (stagger support)
 - `src/i18n/` — en.json, np.json, index.ts, ssgContext.tsx
-- `src/data/` — reserved (products.ts, faq.ts not yet created)
+- `src/data/` — products.ts (cylinder data for all 3 gas types), faq.ts (12 FAQ items)
+- `public/robots.txt` — crawl rules pointing to sitemap
+- `public/sitemap.xml` — all 5 routes with priorities
 - `functions/api/contact.ts` — Cloudflare Pages Function for form submission
 - `public/_redirects` — SPA routing rule for Cloudflare Pages
 - `wrangler.toml` — Cloudflare Pages config skeleton
@@ -315,12 +318,11 @@ For each cylinder size, display:
 **Phase 1:** Design mockups and approval — ✓ COMPLETE (2026-03-27)
 **Phase 2:** Frontend development — IN PROGRESS (F-001 through F-014 per `tasks/1-FEATURES.md`)
   - Implementation order: F-001→F-002→F-003 (foundation) → F-004→F-005 (shell) → F-006→F-010 (pages) → F-011→F-013 (polish) → F-014 (deploy)
-  - F-001 through F-010 ✓ COMPLETE (2026-03-27) — scaffolding, i18n, design system, navbar, footer, all 5 pages
-  - F-011 through F-014 — pending
-  - F-011 (Accessibility) — PARTIAL: ARIA labels + per-page meta done; robots.txt + sitemap.xml pending
-  - F-012 (Animations) — NOT STARTED
-  - F-013 (Responsive) — MOSTLY DONE: all breakpoints functional; cylinder table mobile card stack pending
-  - F-014 (Deployment) — PARTIAL: _redirects + wrangler.toml + functions/api/contact.ts done; GitHub Actions CI/CD pending
+  - F-001 through F-013, F-015 ✓ COMPLETE (2026-03-27) — scaffolding, i18n, design system, navbar (transparent hero mode), footer, all 5 pages, accessibility audit, animations, responsive design
+  - F-011 ✓ COMPLETE — ARIA, meta tags, WCAG verified, semantic HTML, alt text, lang, robots.txt, sitemap.xml
+  - F-012 ✓ COMPLETE — scroll-triggered animations (useScrollAnimation hook + IntersectionObserver), staggered cards, hover lift, page fade transitions
+  - F-013 ✓ COMPLETE — all breakpoints, cylinder table mobile card stack, footer/hero stacking, 44px touch targets
+  - F-014 — PARTIAL: _redirects + wrangler.toml + functions/api/contact.ts done; GitHub Actions CI/CD + VITE_FORM_ENDPOINT pending
   - Architecture decisions documented in `tasks/ARCHITECTURE-DECISION.md`
 **Phase 3:** Backend integration (contact form, email notifications)
 **Phase 4:** Testing and QA

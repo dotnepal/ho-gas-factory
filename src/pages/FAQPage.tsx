@@ -25,12 +25,7 @@ export const ssgOptions: SsgOptions = {
 
 const CATEGORIES: Array<FaqCategory | 'all'> = [
   'all',
-  'safety',
-  'ordering',
-  'delivery',
-  'rental',
-  'payment',
-  'emergency',
+  ...[...new Set(FAQ_DATA.map((item) => item.category))],
 ]
 
 // ─── Hero ───────────────────────────────────────────────────────────────────
@@ -156,7 +151,7 @@ export default function FAQPage() {
       : FAQ_DATA.filter((item) => item.category === activeCategory)
 
   return (
-    <main id="main-content">
+    <main id="main-content" className="page-transition">
       <FAQHero />
       <CategoryFilter
         active={activeCategory}

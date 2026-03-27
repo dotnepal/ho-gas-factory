@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import type { SsgOptions } from 'vite-plugin-ssg/utils'
 import { Button, Card, Badge, SectionHeader } from '../components/ui'
+import { useScrollAnimation } from '../hooks/useScrollAnimation'
 
 export const ssgOptions: SsgOptions = {
   slug: 'index',
@@ -115,19 +116,22 @@ const GAS_ICONS = {
 function GasHighlights() {
   const { t } = useTranslation()
   const gases = ['oxygen', 'nitrogen', 'hydrogen'] as const
+  const headerRef = useScrollAnimation<HTMLDivElement>()
+  const gridRef = useScrollAnimation<HTMLDivElement>({ stagger: 120 })
 
   return (
-    <section aria-labelledby="gases-heading" className="py-20 px-6 bg-white">
+    <section aria-labelledby="gases-heading" className="py-20 px-6">
       <div className="max-w-6xl mx-auto">
-        <SectionHeader
-          eyebrow={t('common.learnMore')}
-          title={t('home.gas.sectionTitle')}
-          align="center"
-          className="mb-12"
-        />
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div ref={headerRef} className="animate-on-scroll mb-12">
+          <SectionHeader
+            eyebrow={t('common.learnMore')}
+            title={t('home.gas.sectionTitle')}
+            align="center"
+          />
+        </div>
+        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {gases.map((gas) => (
-            <Card key={gas} hover as="article" className="flex flex-col items-start gap-4">
+            <Card key={gas} hover as="article" className="animate-on-scroll flex flex-col items-start gap-4">
               <div className="p-3 rounded-xl bg-brand-light text-brand-blue">
                 {GAS_ICONS[gas]}
               </div>
@@ -161,6 +165,8 @@ function ServicesStrip() {
     { key: 'bulkOrders', icon: '📦' },
     { key: 'delivery', icon: '🚚' },
   ] as const
+  const headerRef = useScrollAnimation<HTMLDivElement>()
+  const badgesRef = useScrollAnimation<HTMLDivElement>({ stagger: 80 })
 
   return (
     <section
@@ -169,14 +175,15 @@ function ServicesStrip() {
       style={{ background: 'var(--color-brand-light)' }}
     >
       <div className="max-w-6xl mx-auto">
-        <SectionHeader
-          title={t('home.services.sectionTitle')}
-          align="center"
-          className="mb-10"
-        />
-        <div className="flex flex-wrap justify-center gap-4">
+        <div ref={headerRef} className="animate-on-scroll mb-10">
+          <SectionHeader
+            title={t('home.services.sectionTitle')}
+            align="center"
+          />
+        </div>
+        <div ref={badgesRef} className="flex flex-wrap justify-center gap-4">
           {services.map(({ key, icon }) => (
-            <Badge key={key} variant="primary" className="gap-2 px-5 py-3 text-base">
+            <Badge key={key} variant="primary" className="animate-on-scroll gap-2 px-5 py-3 text-base">
               <span aria-hidden="true">{icon}</span>
               {t(`home.services.${key}`)}
             </Badge>
@@ -206,18 +213,22 @@ const TRUST_IMAGES = [
 
 function TrustGallery() {
   const { t } = useTranslation()
+  const headerRef = useScrollAnimation<HTMLDivElement>()
+  const gridRef = useScrollAnimation<HTMLDivElement>({ stagger: 120 })
+
   return (
     <section aria-label="Trusted Partner" className="py-20 px-6 bg-white">
       <div className="max-w-6xl mx-auto">
-        <SectionHeader
-          eyebrow={t('common.learnMore')}
-          title={t('home.trust.sectionTitle')}
-          align="center"
-          className="mb-12"
-        />
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div ref={headerRef} className="animate-on-scroll mb-12">
+          <SectionHeader
+            eyebrow={t('common.learnMore')}
+            title={t('home.trust.sectionTitle')}
+            align="center"
+          />
+        </div>
+        <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {TRUST_IMAGES.map((img) => (
-            <Card key={img.src} flush hover as="figure">
+            <Card key={img.src} flush hover as="figure" className="animate-on-scroll">
               <img
                 src={img.src}
                 alt={img.alt}
@@ -240,6 +251,8 @@ function TrustGallery() {
 
 function CTABanner() {
   const { t } = useTranslation()
+  const ref = useScrollAnimation<HTMLDivElement>()
+
   return (
     <section
       aria-label="Call to action"
@@ -249,18 +262,20 @@ function CTABanner() {
           'linear-gradient(135deg, var(--color-brand-dark) 0%, var(--color-brand-blue) 100%)',
       }}
     >
-      <h2 className="text-3xl sm:text-4xl font-display font-bold text-white">
-        {t('home.cta.title')}
-      </h2>
-      <div className="mt-8">
-        <Button
-          as="a"
-          href="/contact"
-          size="lg"
-          className="bg-white text-brand-blue hover:bg-brand-light border-0 shadow-lg"
-        >
-          {t('home.cta.button')}
-        </Button>
+      <div ref={ref} className="animate-on-scroll">
+        <h2 className="text-3xl sm:text-4xl font-display font-bold text-white">
+          {t('home.cta.title')}
+        </h2>
+        <div className="mt-8">
+          <Button
+            as="a"
+            href="/contact"
+            size="lg"
+            className="bg-white text-brand-blue hover:bg-brand-light border-0 shadow-lg"
+          >
+            {t('home.cta.button')}
+          </Button>
+        </div>
       </div>
     </section>
   )
@@ -270,7 +285,7 @@ function CTABanner() {
 
 export default function HomePage() {
   return (
-    <main id="main-content">
+    <main id="main-content" className="page-transition">
       <HomeHero />
       <GasHighlights />
       <ServicesStrip />

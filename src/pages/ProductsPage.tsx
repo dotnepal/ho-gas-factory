@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import type { SsgOptions } from 'vite-plugin-ssg/utils'
 import { Button, Card, SectionHeader, PageHero } from '../components/ui'
 import { PRODUCTS, type GasKey } from '../data/products'
+import { useScrollAnimation } from '../hooks/useScrollAnimation'
 
 export const ssgOptions: SsgOptions = {
   slug: 'products',
@@ -90,7 +91,7 @@ function GasTabs() {
       <div className="max-w-6xl mx-auto px-6">
         {/* Tab bar */}
         <div className="flex border-b border-gray-200 overflow-x-auto" role="tablist" aria-label="Gas types">
-          {(['oxygen', 'nitrogen', 'hydrogen'] as const).map((gas) => (
+          {PRODUCTS.map(({ key: gas }) => (
             <button
               key={gas}
               role="tab"
@@ -117,7 +118,6 @@ function GasTabs() {
           aria-labelledby={`tab-${activeTab}`}
           className="py-10"
         >
-          {/* Description */}
           <p className="font-body text-brand-steel leading-relaxed text-base sm:text-lg max-w-3xl">
             {t(`products.${activeTab}.desc`)}
           </p>
@@ -135,21 +135,54 @@ function GasTabs() {
             ))}
           </ul>
 
-          {/* Cylinder table */}
-          <div className="mt-8 overflow-x-auto rounded-xl border border-gray-100 shadow-sm">
+          <div className="mt-8 md:hidden flex flex-col gap-3">
+            {activeProduct.cylinders.map((row) => (
+              <div
+                key={row.size}
+                className="rounded-xl border border-gray-100 shadow-sm bg-white p-5 flex flex-col gap-4"
+              >
+                {/* Size badge + capacity/weight */}
+                <div className="flex items-center justify-between">
+                  <span className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-brand-light font-display font-bold text-brand-blue text-lg">
+                    {row.size}
+                  </span>
+                  <div className="text-right">
+                    <p className="font-body text-xs text-brand-steel uppercase tracking-wide">{t('products.table.capacity')}</p>
+                    <p className="font-body font-semibold text-brand-dark">{row.capacity}</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-body text-xs text-brand-steel uppercase tracking-wide">{t('products.table.weight')}</p>
+                    <p className="font-body font-semibold text-brand-dark">{row.weight}</p>
+                  </div>
+                </div>
+
+                {/* Availability + CTA */}
+                <div className="flex items-center gap-3 pt-3 border-t border-gray-100">
+                  <span className={[
+                    'flex items-center gap-1 px-3 py-1 rounded-full text-xs font-body font-medium',
+                    row.rent ? 'bg-emerald-50 text-emerald-700' : 'bg-gray-100 text-gray-400',
+                  ].join(' ')}>
+                    {row.rent ? '✓' : '✗'} {t('products.table.rent')}
+                  </span>
+                  <span className={[
+                    'flex items-center gap-1 px-3 py-1 rounded-full text-xs font-body font-medium',
+                    row.sale ? 'bg-emerald-50 text-emerald-700' : 'bg-gray-100 text-gray-400',
+                  ].join(' ')}>
+                    {row.sale ? '✓' : '✗'} {t('products.table.sale')}
+                  </span>
+                  <Button as="a" href="/contact" variant="outline" size="sm" className="ml-auto">
+                    {t('products.pricing.contact')}
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 hidden md:block overflow-x-auto rounded-xl border border-gray-100 shadow-sm">
             <table className="w-full min-w-[560px] text-sm font-body">
               <thead>
                 <tr style={{ background: 'var(--color-brand-light)' }}>
-                  {(
-                    [
-                      'size',
-                      'capacity',
-                      'weight',
-                      'rent',
-                      'sale',
-                      'pricing',
-                    ] as const
-                  ).map((col) => (
+                  {(['size', 'capacity', 'weight', 'rent', 'sale', 'pricing'] as const).map((col) => (
                     <th
                       key={col}
                       scope="col"
@@ -162,26 +195,15 @@ function GasTabs() {
               </thead>
               <tbody>
                 {activeProduct.cylinders.map((row, i) => (
-                  <tr
-                    key={row.size}
-                    className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
-                  >
+                  <tr key={row.size} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
                     <td className="px-5 py-4 font-semibold text-brand-dark">{row.size}</td>
                     <td className="px-5 py-4 text-brand-steel">{row.capacity}</td>
                     <td className="px-5 py-4 text-brand-steel">{row.weight}</td>
                     <td className="px-5 py-4">
-                      {row.rent ? (
-                        <span className="font-bold text-emerald-600">✓</span>
-                      ) : (
-                        <span className="text-gray-300">✗</span>
-                      )}
+                      {row.rent ? <span className="font-bold text-emerald-600">✓</span> : <span className="text-gray-300">✗</span>}
                     </td>
                     <td className="px-5 py-4">
-                      {row.sale ? (
-                        <span className="font-bold text-emerald-600">✓</span>
-                      ) : (
-                        <span className="text-gray-300">✗</span>
-                      )}
+                      {row.sale ? <span className="font-bold text-emerald-600">✓</span> : <span className="text-gray-300">✗</span>}
                     </td>
                     <td className="px-5 py-4">
                       <Button as="a" href="/contact" variant="outline" size="sm">
@@ -204,6 +226,8 @@ function GasTabs() {
 function ServicesSection() {
   const { t } = useTranslation()
   const services = ['refilling', 'bulk', 'delivery'] as const
+  const headerRef = useScrollAnimation<HTMLDivElement>()
+  const gridRef = useScrollAnimation<HTMLDivElement>({ stagger: 120 })
 
   return (
     <section
@@ -212,14 +236,15 @@ function ServicesSection() {
       style={{ background: 'var(--color-brand-light)' }}
     >
       <div className="max-w-6xl mx-auto">
-        <SectionHeader
-          title={t('products.services.title')}
-          align="center"
-          className="mb-12"
-        />
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div ref={headerRef} className="animate-on-scroll mb-12">
+          <SectionHeader
+            title={t('products.services.title')}
+            align="center"
+          />
+        </div>
+        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {services.map((key) => (
-            <Card key={key} as="article" className="flex flex-col items-start gap-4">
+            <Card key={key} hover as="article" className="animate-on-scroll flex flex-col items-start gap-4">
               <div className="p-3 rounded-xl bg-brand-light text-brand-blue">
                 {SERVICE_ICONS[key]}
               </div>
@@ -243,7 +268,7 @@ function ServicesSection() {
 
 export default function ProductsPage() {
   return (
-    <main id="main-content">
+    <main id="main-content" className="page-transition">
       <ProductsHero />
       <GasTabs />
       <ServicesSection />
