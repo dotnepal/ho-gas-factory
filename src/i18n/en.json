@@ -114,6 +114,15 @@
         "title": "Delivery",
         "desc": "Same-day local delivery and regional shipping available."
       }
+    },
+    "oxygen": {
+      "desc": "Medical-grade oxygen for hospitals, clinics, homecare providers, and industrial use. All cylinders are tested and certified safe."
+    },
+    "nitrogen": {
+      "desc": "High-purity industrial nitrogen for manufacturing, food processing, laboratories, and metal fabrication applications."
+    },
+    "hydrogen": {
+      "desc": "High-purity hydrogen for industrial processes, research laboratories, and specialised applications."
     }
   },
   "contact": {

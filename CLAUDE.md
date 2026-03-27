@@ -4,7 +4,7 @@
 
 **Purpose:** Build brand trust, showcase services, and generate sales leads
 
-**Current State:** Phase 2 in progress — F-001 through F-007 complete. F-008 through F-010 (pages) are next. F-011 (Accessibility) partial. F-012 (Animations) not started. F-013 (Responsive) mostly done. F-014 (Deploy) partial.
+**Current State:** Phase 2 in progress — F-001 through F-010 complete. F-011 (Accessibility) partial. F-012 (Animations) not started. F-013 (Responsive) mostly done. F-014 (Deploy) partial.
 
 **Repository Contents (as of 2026-03-27):**
 - `CLAUDE.md` — project specification and workflow rules (this file)
@@ -315,8 +315,8 @@ For each cylinder size, display:
 **Phase 1:** Design mockups and approval — ✓ COMPLETE (2026-03-27)
 **Phase 2:** Frontend development — IN PROGRESS (F-001 through F-014 per `tasks/1-FEATURES.md`)
   - Implementation order: F-001→F-002→F-003 (foundation) → F-004→F-005 (shell) → F-006→F-010 (pages) → F-011→F-013 (polish) → F-014 (deploy)
-  - F-001 through F-007 ✓ COMPLETE (2026-03-27) — scaffolding, i18n, design system, navbar, footer, home page, about page
-  - F-008 (Products), F-009 (Contact), F-010 (FAQ) — IN PROGRESS
+  - F-001 through F-010 ✓ COMPLETE (2026-03-27) — scaffolding, i18n, design system, navbar, footer, all 5 pages
+  - F-011 through F-014 — pending
   - F-011 (Accessibility) — PARTIAL: ARIA labels + per-page meta done; robots.txt + sitemap.xml pending
   - F-012 (Animations) — NOT STARTED
   - F-013 (Responsive) — MOSTLY DONE: all breakpoints functional; cylinder table mobile card stack pending

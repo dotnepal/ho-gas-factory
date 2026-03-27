@@ -188,26 +188,55 @@
 - [x] "Why Choose Us" 4-col icon grid
 > Notes: Reuses `PageHero` component. CompanyStory hides facility image on mobile (`hidden lg:block`). TEAM_MEMBERS is a static module-level constant (not i18n — proper nouns). ServiceAreas reuses Badge `variant="primary"` with emoji. WHY_US_ICONS constant follows GAS_ICONS pattern. Background alternation: gradient → white → brand-light → white → brand-light.
 
-### F-008: Products/Services Page
-- [ ] Tab bar (Oxygen | Nitrogen | Hydrogen) with animated underline
-- [ ] Per-tab: description + use cases list
-- [ ] Cylinder table from `src/data/products.ts`: Size, Capacity, Weight, Rent ✓/✗, Sale ✓/✗, Pricing
-- [ ] `src/data/products.ts` typed data for all 3 gas types
-- [ ] Services section: 3 cards (Refilling, Bulk Orders, Delivery)
+### F-008: Products/Services Page ✓ COMPLETE (2026-03-27)
+- [x] Tab bar (Oxygen | Nitrogen | Hydrogen) with animated underline
+- [x] Per-tab: description + use cases list
+- [x] Cylinder table from `src/data/products.ts`: Size, Capacity, Weight, Rent ✓/✗, Sale ✓/✗, Pricing
+- [x] `src/data/products.ts` typed data for all 3 gas types
+- [x] Services section: 3 cards (Refilling, Bulk Orders, Delivery)
+> Notes: Tab bar uses `role="tablist/tab/tabpanel"` ARIA pattern with `useState<GasKey>`. Table wrapped in `overflow-x-auto` for mobile. Pricing cells use `Button as="a" href="/contact" variant="outline" size="sm"`. Use cases in static data constant (English-only, not i18n). Added `products.{oxygen|nitrogen|hydrogen}.desc` keys to both locale files.
 
-### F-009: Contact Page
-- [ ] Contact form (`react-hook-form`): Name*, Email*, Phone*, Company*, Gas Type, Requirement, Message
-- [ ] Client-side validation with inline error messages
-- [ ] Form submission via Cloudflare Pages Function (Web3Forms as fallback)
-- [ ] Success / error toast notification
-- [ ] Contact info sidebar (phone, email, address)
-- [ ] Google Map embed iframe
+### F-009: Contact Page ✓ COMPLETE (2026-03-27)
+- [x] Contact form (`react-hook-form`): Name*, Email*, Phone*, Company*, Gas Type, Requirement, Message
+- [x] Client-side validation with inline error messages
+- [x] Form submission via Cloudflare Pages Function (Web3Forms as fallback)
+- [x] Success / error toast notification
+- [x] Contact info sidebar (phone, email, address)
+- [x] Google Map embed iframe
+> Notes: Shared `inputClass(hasError)` helper for consistent field styling. Split layout `lg:grid-cols-[3fr_2fr]`. Status managed with `useState<'idle'|'success'|'error'>`. Select dropdowns for Gas Type and Requirement share a 2-col grid on sm+. Map reuses same Kathmandu embed URL as Footer.
 
-### F-010: FAQ Page
-- [ ] FAQ data in `src/data/faq.ts`: `{ question, answer, category }[]`
-- [ ] Category filter pills (All | Safety | Ordering | Delivery | Rental | Payment | Emergency)
-- [ ] Accordion with smooth height animation
-- [ ] Reactive filter on category click
+### F-010: FAQ Page ✓ COMPLETE (2026-03-27)
+- [x] FAQ data in `src/data/faq.ts`: `{ question, answer, category }[]`
+- [x] Category filter pills (All | Safety | Ordering | Delivery | Rental | Payment | Emergency)
+- [x] Accordion with smooth height animation
+- [x] Reactive filter on category click
+> Notes: 12 FAQ items across all 6 categories (2 per category). Accordion uses CSS `grid-template-rows: 0fr→1fr` transition (no JS height measurement, works without `display:none`). Single-open pattern (only one item open at a time). Category change keeps accordion closed. `Badge interactive` renders as `<button aria-pressed>` for accessibility.
+
+### F-015: Main Navigation Menu (CLAUDE.md §3.1)
+> Tracks the **business spec** for section 3.1 "Main Navigation Menu (Standard)". Technical infrastructure (fixed bar, mobile drawer, scroll shadow, focus trap) is covered by F-004. This task tracks the five named pages and any remaining nav-level UX polish.
+
+**Navigation links — all 5 required destinations:**
+- [x] Home (`/`) — landing page with overview
+- [x] About Us (`/about`) — company information, mission, and team
+- [x] Products/Services (`/products`) — gas types and ordering options
+- [x] Contact (`/contact`) — contact form and inquiry
+- [x] FAQ (`/faq`) — frequently asked questions, accordion style
+
+**Language toggle (EN/NP):**
+- [x] Visible in desktop nav (right side of bar)
+- [x] Visible in mobile drawer footer
+- [x] Persists selection to `localStorage` key `ho-gas-lang`
+- [x] `<html lang>` attribute updates to `en` / `ne` on toggle
+
+**Active-link visual feedback:**
+- [x] Active page link shows full brand-blue underline + brand-blue text (desktop)
+- [x] Active page link shows brand-light background + brand-blue text (mobile drawer)
+
+**Remaining enhancements — not yet implemented:**
+- [ ] "Contact Us" CTA button in desktop navbar (right of nav links, before language toggle) — drives lead generation without requiring a page scroll
+- [ ] Skip-to-content link (`#main-content`) visible on keyboard focus — accessibility requirement
+
+> **Dependency:** F-004 (Navbar & Header) delivers all ✓ items above. The two remaining items above are new scope not in F-004.
 
 ### F-011: Accessibility & SEO
 - [ ] ARIA labels on all interactive elements
