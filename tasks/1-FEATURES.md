@@ -1,6 +1,6 @@
 # HO Gas Factory — Feature Breakdown
 
-**Status:** Phase 1 (Design/Mockup) ✓ Complete → Phase 2 (Implementation) pending approval
+**Status:** Phase 1 (Design/Mockup) ✓ Complete → Phase 2 (Implementation) in progress
 
 ---
 
@@ -120,13 +120,14 @@
 
 ## Feature Tasks
 
-### F-001: Project Scaffolding
-- [ ] Init React 18 + Vite + TypeScript (`npm create vite@latest`)
-- [ ] Install & configure Tailwind CSS with brand color tokens
-- [ ] Set up folder structure: `src/components/`, `src/pages/`, `src/i18n/`, `src/data/`, `src/hooks/`
-- [ ] Configure `vite.config.ts` with `vite-plugin-ssg`
-- [ ] Add Cloudflare Pages config (`public/_redirects`, `wrangler.toml` skeleton)
-- [ ] Set up ESLint + Prettier
+### F-001: Project Scaffolding ✓ COMPLETE (2026-03-27)
+- [x] Init React 19 + Vite 5 + TypeScript (manual scaffold — directory was non-empty)
+- [x] Install & configure Tailwind CSS v4 with brand color tokens (`@theme` in `src/index.css`)
+- [x] Set up folder structure: `src/components/`, `src/pages/`, `src/i18n/`, `src/data/`, `src/hooks/`
+- [x] Configure `vite.config.ts` with `vite-plugin-ssg` (`ssgPlugin`, pages scan `src/pages/`)
+- [x] Add Cloudflare Pages config (`public/_redirects`, `wrangler.toml` skeleton)
+- [x] Set up ESLint + Prettier (0 errors, 0 warnings)
+> Notes: React upgraded to v19 (required by vite-plugin-ssg's `prerenderToNodeStream`). Vite pinned to 5.4.21, @vitejs/plugin-react pinned to 4.3.4. SSG slugs must be flat (no `/`). ssgOptions must close with `};`.
 
 ### F-002: i18n (EN/NP Language Toggle)
 - [ ] Install `react-i18next` + `i18next` + `i18next-browser-languagedetector`
