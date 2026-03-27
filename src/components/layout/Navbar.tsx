@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { ROUTES } from '../../routes'
 import { useScrolled } from '../../hooks/useScrolled'
 import LanguageToggle from '../ui/LanguageToggle'
+import Button from '../ui/Button'
 
 // ─── Logo ──────────────────────────────────────────────────────────────────
 
@@ -216,6 +217,16 @@ export default function Navbar() {
 
           {/* Right controls */}
           <div className="flex items-center gap-3">
+            {/* CTA button — desktop only */}
+            <Button
+              as="a"
+              href="/contact"
+              size="sm"
+              className="hidden md:inline-flex"
+            >
+              {t('common.contactUs')}
+            </Button>
+
             {/* Language toggle — visible on all sizes */}
             <LanguageToggle />
 

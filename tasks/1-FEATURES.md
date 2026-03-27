@@ -212,7 +212,7 @@
 - [x] Reactive filter on category click
 > Notes: 12 FAQ items across all 6 categories (2 per category). Accordion uses CSS `grid-template-rows: 0fr→1fr` transition (no JS height measurement, works without `display:none`). Single-open pattern (only one item open at a time). Category change keeps accordion closed. `Badge interactive` renders as `<button aria-pressed>` for accessibility.
 
-### F-015: Main Navigation Menu (CLAUDE.md §3.1)
+### F-015: Main Navigation Menu (CLAUDE.md §3.1) ✓ COMPLETE (2026-03-27)
 > Tracks the **business spec** for section 3.1 "Main Navigation Menu (Standard)". Technical infrastructure (fixed bar, mobile drawer, scroll shadow, focus trap) is covered by F-004. This task tracks the five named pages and any remaining nav-level UX polish.
 
 **Navigation links — all 5 required destinations:**
@@ -232,11 +232,11 @@
 - [x] Active page link shows full brand-blue underline + brand-blue text (desktop)
 - [x] Active page link shows brand-light background + brand-blue text (mobile drawer)
 
-**Remaining enhancements — not yet implemented:**
-- [ ] "Contact Us" CTA button in desktop navbar (right of nav links, before language toggle) — drives lead generation without requiring a page scroll
-- [ ] Skip-to-content link (`#main-content`) visible on keyboard focus — accessibility requirement
+**Remaining enhancements:**
+- [x] "Contact Us" CTA button in desktop navbar (right of nav links, before language toggle) — `hidden md:inline-flex` so mobile drawer is unaffected
+- [x] Skip-to-content link (`#main-content`) visible on keyboard focus — already in `App.tsx` via `sr-only focus:not-sr-only`
 
-> **Dependency:** F-004 (Navbar & Header) delivers all ✓ items above. The two remaining items above are new scope not in F-004.
+> **Dependency:** F-004 (Navbar & Header) delivers the infrastructure. F-015 tracks the business spec requirements from CLAUDE.md §3.1.
 
 ### F-011: Accessibility & SEO
 - [ ] ARIA labels on all interactive elements
