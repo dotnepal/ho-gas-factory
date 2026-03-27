@@ -4,11 +4,13 @@
 
 **Purpose:** Build brand trust, showcase services, and generate sales leads
 
-**Current State:** Phase 2 in progress — F-001 through F-013 complete, F-015 complete. F-014 (Deploy) partial: _redirects + wrangler.toml done; GitHub Actions CI/CD + VITE_FORM_ENDPOINT pending.
+**Current State:** Phase 2 COMPLETE — F-001 through F-016 complete (including F-014 Deploy). All pages live, CI/CD pipeline wired. Ready for Phase 3 (backend integration / production launch).
 
-**Repository Contents (as of 2026-03-27):**
+**Repository Contents (as of 2026-03-28):**
 - `CLAUDE.md` — project specification and workflow rules (this file)
-- `tasks/1-FEATURES.md` — feature breakdown with ASCII wireframes and 14 task items (F-001 to F-014)
+- `tasks/1-FEATURES.md` — feature breakdown with ASCII wireframes and task items (F-001 to F-016, all complete)
+- `tasks/DEPLOY.md` — deployment specification and runbook (secrets, env vars, manual deploy, rollback)
+- `.github/workflows/deploy.yml` — GitHub Actions CI/CD (build on PRs, deploy to CF Pages on main)
 - `tasks/ARCHITECTURE-DECISION.md` — detailed architecture and system design decisions
 - `tasks/lessons.md` — lessons learned during implementation
 - `docs/1-INITIAL-SPECIFICATION.md` — full original specification document
@@ -316,13 +318,9 @@ For each cylinder size, display:
 ## 8. Development Phases
 
 **Phase 1:** Design mockups and approval — ✓ COMPLETE (2026-03-27)
-**Phase 2:** Frontend development — IN PROGRESS (F-001 through F-014 per `tasks/1-FEATURES.md`)
-  - Implementation order: F-001→F-002→F-003 (foundation) → F-004→F-005 (shell) → F-006→F-010 (pages) → F-011→F-013 (polish) → F-014 (deploy)
-  - F-001 through F-013, F-015 ✓ COMPLETE (2026-03-27) — scaffolding, i18n, design system, navbar (transparent hero mode), footer, all 5 pages, accessibility audit, animations, responsive design
-  - F-011 ✓ COMPLETE — ARIA, meta tags, WCAG verified, semantic HTML, alt text, lang, robots.txt, sitemap.xml
-  - F-012 ✓ COMPLETE — scroll-triggered animations (useScrollAnimation hook + IntersectionObserver), staggered cards, hover lift, page fade transitions
-  - F-013 ✓ COMPLETE — all breakpoints, cylinder table mobile card stack, footer/hero stacking, 44px touch targets
-  - F-014 — PARTIAL: _redirects + wrangler.toml + functions/api/contact.ts done; GitHub Actions CI/CD + VITE_FORM_ENDPOINT pending
+**Phase 2:** Frontend development — ✓ COMPLETE (2026-03-28)
+  - F-001 through F-016 all complete — scaffolding, i18n, design system, navbar, footer, all 6 pages, accessibility, animations, responsive design, CI/CD
+  - F-014 ✓ COMPLETE — `.github/workflows/deploy.yml` (build on PRs, deploy to CF Pages on main push); `VITE_FORM_ENDPOINT=/api/contact` injected at build time; deployment runbook at `tasks/DEPLOY.md`
   - Architecture decisions documented in `tasks/ARCHITECTURE-DECISION.md`
 **Phase 3:** Backend integration (contact form, email notifications)
 **Phase 4:** Testing and QA
@@ -407,9 +405,23 @@ After every feature has been implemented. Run npm run build and ensure that ever
 
 ## 9. Changelog & Updates
 
-### 2026-03-28 — F-016 Complete + Bug Fixes
+### 2026-03-28 — F-014 Complete + F-016 Complete + Bug Fixes
 
-**Current State (updated):** Phase 2 in progress — F-001 through F-013, F-015, F-016 complete. F-014 (Deploy) partial: _redirects + wrangler.toml done; GitHub Actions CI/CD + VITE_FORM_ENDPOINT pending.
+**Current State (updated):** Phase 2 COMPLETE — F-001 through F-016 all complete including F-014 Deploy. GitHub Actions CI/CD wired; deployment runbook at `tasks/DEPLOY.md`.
+
+#### F-014: Deployment Setup — COMPLETE
+
+**Files added:**
+- `.github/workflows/deploy.yml` — CI/CD pipeline: build job on all PRs (CI check), deploy job on push to `main` (after PR merge)
+- `tasks/DEPLOY.md` — deployment runbook (secrets, env vars, manual deploy, rollback procedure)
+
+**Workflow behavior:**
+- Build job: `npm ci` → `npm run build` (with `VITE_FORM_ENDPOINT=/api/contact`) → uploads `dist/` artifact
+- Deploy job: downloads artifact → `wrangler pages deploy dist --project-name=ho-gas-factory`
+
+**Required setup (one-time, done by developer):**
+- `CLOUDFLARE_API_TOKEN` + `CLOUDFLARE_ACCOUNT_ID` → GitHub repo secrets
+- `WEB3FORMS_KEY` → Cloudflare Pages dashboard (Production environment variable)
 
 #### F-016: Standard Main Menu & Services Page — COMPLETE
 

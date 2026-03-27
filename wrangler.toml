@@ -1,12 +1,11 @@
+"$schema" = "./node_modules/wrangler/config-schema.json"
 name = "ho-gas-factory"
 compatibility_date = "2026-03-01"
-pages_build_output_dir = "dist"
+pages_build_output_dir = "./dist"
 
-# Environment variables are set in the Cloudflare Pages dashboard.
-# Required for production:
-#   WEB3FORMS_KEY — Web3Forms API key for contact form email delivery
-#
-# Client-side env vars (prefix with VITE_) are set in:
-#   Cloudflare Pages → Settings → Environment Variables
-#   VITE_FORM_ENDPOINT = /api/contact
-#   VITE_WEB3FORMS_KEY = <key> (fallback for local dev only)
+[vars]
+VITE_FORM_ENDPOINT = "/api/contact"
+NODE_VERSION="22.16.0"
+
+# Runtime secrets — set in Cloudflare Pages dashboard, NOT here:
+#   WEB3FORMS_KEY — Web3Forms API key (used server-side by functions/api/contact.ts)
