@@ -1,0 +1,12 @@
+name = "ho-gas-factory"
+compatibility_date = "2026-03-01"
+pages_build_output_dir = "dist"
+
+# Environment variables are set in the Cloudflare Pages dashboard.
+# Required for production:
+#   WEB3FORMS_KEY — Web3Forms API key for contact form email delivery
+#
+# Client-side env vars (prefix with VITE_) are set in:
+#   Cloudflare Pages → Settings → Environment Variables
+#   VITE_FORM_ENDPOINT = /api/contact
+#   VITE_WEB3FORMS_KEY = <key> (fallback for local dev only)
