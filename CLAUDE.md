@@ -484,3 +484,48 @@ See `tasks/lessons.md` for full details. Key additions:
 - **L-005 (updated):** Scroll animation CSS must use `[data-visible]` attribute selector — React reconciliation will overwrite class-based state
 - **L-006:** Define inline SVG icons as module-level constants to prevent re-creating JSX on every render
 - **L-007:** SSG StaticRouter `location` prop must exactly match `routeUrl` to render correct active nav state in static HTML
+
+---
+
+### 2026-03-29 — Bug Fixes: Gas Icons + Products Weight Column
+
+#### Bug Fix: Wrong SVG icon text for CO₂ and Argon — FIXED
+
+**Affected file:** `src/pages/HomePage.tsx` (GAS_ICONS constant, lines 113–124)
+
+**Root cause:** `carbondioxide` and `argon` icon entries were copy-pasted from the `hydrogen` entry. The key names were updated but the `<text>` content inside the SVG was left as `H₂` for both.
+
+**Fix applied:**
+- `carbondioxide` icon: `H₂` → `CO₂`, `fontSize` reduced `16` → `13` (longer symbol needs smaller font to fit inside 36px-diameter circle)
+- `argon` icon: `H₂` → `Ar` (fontSize unchanged at `16`)
+
+**Note:** TypeScript cannot catch this — the bug is a visual/content issue, not a type error. Requires browser visual QA.
+
+---
+
+#### Bug Fix: `weight` column removed from Products page — FIXED
+
+**Affected file:** `src/pages/ProductsPage.tsx`
+
+**Root cause:** The `weight` column was added during initial scaffolding. Per CLAUDE.md §2.3 (Product Display Information), the listed display fields are: Capacity, Rent, Sale, Pricing. Weight is not in the spec.
+
+**Changes:**
+- **Desktop table header:** Removed `'weight'` from `(['size', 'capacity', 'weight', 'rent', 'sale', 'pricing'] as const)`
+- **Desktop table body:** Removed `<td>{row.weight}</td>` cell
+- **Mobile card view:** Removed the weight label + value `<div>` block
+
+**Not changed:** `weight` field remains in `src/data/products.ts` `CylinderRow` type and data (data layer untouched). `"weight"` translation keys in `en.json` / `np.json` retained (unused but harmless).
+
+**New products table columns:** Size | Capacity | Rent | Sale | Pricing
+
+---
+
+#### New docs file added
+
+- `docs/4-FIX-GAS-ICONS-REMOVE-WEIGHT.md` — detailed spec + root cause analysis for both fixes
+
+#### Lessons Captured (2026-03-29)
+
+See `tasks/lessons.md` for full details. Key additions:
+- **L-008:** SVG icon text content is not type-checked — copy-pasted icons require visual QA in browser to verify correct chemical formula renders
+- **L-009:** Cross-reference rendered columns against CLAUDE.md §2.3 before shipping — scaffold code often includes more fields than the spec requires

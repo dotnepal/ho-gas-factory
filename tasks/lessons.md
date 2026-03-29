@@ -166,3 +166,27 @@ export const ssgOptions: SsgOptions = {
 **Rule:** Always copy the `context` block from an existing stub and change only the `location` string. Never write it from scratch.
 
 **Discovered during:** F-004 Navbar active-link testing during SSG prerender verification.
+
+---
+
+## L-008: SVG icon text content is not type-checked — requires visual QA
+
+**Pattern:** When building `GAS_ICONS` (or any SVG icon map) by copy-paste, the `<text>` content inside the SVG is a plain string. TypeScript validates the object's keys and shape, but never the string values.
+
+**Why this matters:** Copying the `hydrogen` icon entry and only renaming the key will silently leave `H₂` as the displayed text for `carbondioxide` and `argon`. The bug is invisible in code review and only appears when rendered in a browser.
+
+**How to apply:**
+- After adding any new icon entry, open the browser and visually confirm the correct chemical formula renders
+- Checklist when copy-pasting icons: (1) key name, (2) `<text>` content, (3) `fontSize` (longer symbols like `CO₂` need a smaller size, e.g. `13` vs `16`)
+
+**Discovered during:** Post-Phase-2 bug fix (2026-03-29) — `carbondioxide` and `argon` icons both showed `H₂`.
+
+---
+
+## L-009: Cross-reference rendered columns against CLAUDE.md §2.3 before shipping
+
+**Pattern:** Scaffold code often includes more data fields than the spec requires. The `weight` column was added during initial `ProductsPage` scaffolding but is not listed in §2.3 (Product Display Information).
+
+**How to apply:** Before marking any data-display feature done, open CLAUDE.md §2.3 and verify each rendered column/field appears in the spec. Remove anything not explicitly listed.
+
+**Discovered during:** Post-Phase-2 bug fix (2026-03-29) — weight column appeared in Products table but was never part of the spec.

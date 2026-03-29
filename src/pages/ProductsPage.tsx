@@ -149,10 +149,6 @@ function GasTabs() {
                     <p className="font-body text-xs text-brand-steel uppercase tracking-wide">{t('products.table.capacity')}</p>
                     <p className="font-body font-semibold text-brand-dark">{row.capacity}</p>
                   </div>
-                  <div className="text-right">
-                    <p className="font-body text-xs text-brand-steel uppercase tracking-wide">{t('products.table.weight')}</p>
-                    <p className="font-body font-semibold text-brand-dark">{row.weight}</p>
-                  </div>
                 </div>
 
                 {/* Availability + CTA */}
@@ -181,7 +177,7 @@ function GasTabs() {
             <table className="w-full min-w-[560px] text-sm font-body">
               <thead>
                 <tr style={{ background: 'var(--color-brand-light)' }}>
-                  {(['size', 'capacity', 'weight', 'rent', 'sale', 'pricing'] as const).map((col) => (
+                  {(['size', 'capacity', 'rent', 'sale', 'pricing'] as const).map((col) => (
                     <th
                       key={col}
                       scope="col"
@@ -197,7 +193,6 @@ function GasTabs() {
                   <tr key={row.size} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
                     <td className="px-5 py-4 font-semibold text-brand-dark">{row.size}</td>
                     <td className="px-5 py-4 text-brand-steel">{row.capacity}</td>
-                    <td className="px-5 py-4 text-brand-steel">{row.weight}</td>
                     <td className="px-5 py-4">
                       {row.rent ? <span className="font-bold text-emerald-600">✓</span> : <span className="text-gray-300">✗</span>}
                     </td>
