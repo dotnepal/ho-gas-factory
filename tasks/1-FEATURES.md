@@ -154,7 +154,7 @@
 
 ### F-004: Navbar & Header ✓ COMPLETE (2026-03-27)
 - [x] Fixed navbar (`position: fixed; top: 0; z-50`) — transparent at rest (over hero), `bg-white shadow-nav` on scroll via `useScrolled` hook
-- [x] Logo: SVG cylinder icon + "HO" (brand-blue) + "Gas Factory" (brand-dark) — links to home; white variant when navbar is transparent
+- [x] Logo: SVG cylinder icon + "HO" (brand-blue) + "Oxygen" (brand-dark) — links to home; white variant when navbar is transparent
 - [x] Desktop nav links via `NavLink` (react-router-dom) — animated underline on hover; active link shows full underline + brand-blue color; white when transparent
 - [x] Mobile hamburger button (`aria-expanded`, `aria-controls`) → slide-in drawer from right (width 72/288px)
 - [x] Drawer: backdrop overlay, close button, focus trap (Tab cycles within), ESC key closes, body scroll lock

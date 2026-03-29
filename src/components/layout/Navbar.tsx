@@ -24,7 +24,7 @@ function Logo({ transparent = false, onClick }: { transparent?: boolean; onClick
       </svg>
       <span className="font-display font-bold leading-none">
         <span className={transparent ? 'text-white text-xl' : 'text-brand-blue text-xl'}>HO</span>
-        <span className={transparent ? 'text-white/80 text-lg' : 'text-brand-dark text-lg'}> Gas Factory</span>
+        <span className={transparent ? 'text-white/80 text-lg' : 'text-brand-dark text-lg'}> Oxygen</span>
       </span>
     </NavLink>
   )
