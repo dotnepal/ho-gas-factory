@@ -195,7 +195,7 @@ Remove from current drawer (not needed for small dropdown):
 ### Page Content (stub — full content TBD)
 
 The ServicesPage should display:
-- PageHero with title "Our Services" and subtitle describing what HO Gas Factory offers
+- PageHero with title "Our Services" and subtitle describing what HO Oxygen offers
 - 3-col service cards (same pattern as Home page services strip):
   1. **Gas Cylinder Rental** — Flexible rental options for short and long-term needs
   2. **Gas Cylinder Sales** — Purchase cylinders outright for permanent use

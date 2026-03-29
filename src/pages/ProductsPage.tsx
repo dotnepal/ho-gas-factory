@@ -10,7 +10,7 @@ export const ssgOptions: SsgOptions = {
   routeUrl: '/products',
   Head: () => (
     <>
-      <title>Products & Services — HO Gas Factory</title>
+      <title>Products & Services — HO Oxygen</title>
       <meta
         name="description"
         content="Explore oxygen, nitrogen, and hydrogen gas cylinders available for rent and sale. Refilling, bulk orders, and delivery services across Nepal."

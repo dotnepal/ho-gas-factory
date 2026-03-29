@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 
 function FooterLogo() {
   return (
-    <Link to="/" aria-label="HO Gas Factory — Home" className="flex items-center gap-2 select-none w-fit">
+    <Link to="/" aria-label="HO Oxygen — Home" className="flex items-center gap-2 select-none w-fit">
       <svg
         width="32"
         height="32"
@@ -152,7 +152,7 @@ export default function Footer() {
                 height="200"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="HO Gas Factory Location — Parashpur, Nepalgunj, Nepal"
+                title="HO Oxygen Location — Parashpur, Nepalgunj, Nepal"
                 aria-label="Google Map showing Parashpur, Nepalgunj, Nepal"
                 className="block"
               />

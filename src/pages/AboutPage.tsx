@@ -8,10 +8,10 @@ export const ssgOptions: SsgOptions = {
   routeUrl: '/about',
   Head: () => (
     <>
-      <title>About Us — HO Gas Factory</title>
+      <title>About Us — HO Oxygen</title>
       <meta
         name="description"
-        content="Learn about HO Gas Factory — our story, team, and commitment to safe, reliable gas supply across Nepal."
+        content="Learn about HO Oxygen — our story, team, and commitment to safe, reliable gas supply across Nepal."
       />
     </>
   ),
@@ -144,7 +144,7 @@ function CompanyStory() {
         <div className="hidden lg:block">
           <img
             src="https://placehold.co/540x380/1e3a5f/ffffff?text=Our+Facility"
-            alt="HO Gas Factory facility"
+            alt="HO Oxygen facility"
             width={540}
             height={380}
             className="rounded-2xl shadow-card w-full object-cover"

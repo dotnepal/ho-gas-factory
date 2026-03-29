@@ -1,4 +1,4 @@
-# HO Gas Factory — Feature Breakdown
+# HO Oxygen — Feature Breakdown
 
 **Status:** Phase 1 (Design/Mockup) ✓ Complete → Phase 2 (Implementation) in progress
 
@@ -46,7 +46,7 @@
 ### About Us Page
 ```
 ┌───────────────────────────────────────────────────────────┐
-│ PAGE HERO: "About HO Gas Factory"                          │
+│ PAGE HERO: "About HO Oxygen"                          │
 ├───────────────────────────────────────────────────────────┤
 │ STORY — text left, facility image right                    │
 ├───────────────────────────────────────────────────────────┤

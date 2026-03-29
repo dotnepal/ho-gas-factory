@@ -9,10 +9,10 @@ export const ssgOptions: SsgOptions = {
   routeUrl: '/faq',
   Head: () => (
     <>
-      <title>FAQ — HO Gas Factory</title>
+      <title>FAQ — HO Oxygen</title>
       <meta
         name="description"
-        content="Frequently asked questions about gas safety, ordering, delivery, rental, and payment at HO Gas Factory."
+        content="Frequently asked questions about gas safety, ordering, delivery, rental, and payment at HO Oxygen."
       />
     </>
   ),

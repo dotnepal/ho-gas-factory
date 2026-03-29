@@ -14,7 +14,7 @@ function Logo({ transparent = false, onClick }: { transparent?: boolean; onClick
     : { body: 'var(--color-brand-blue)', bottom: 'var(--color-brand-dark)', cap: 'var(--color-brand-dark)', glow: 'var(--color-brand-accent)' }
 
   return (
-    <NavLink to="/" aria-label="HO Gas Factory — Home" className="flex items-center gap-2 select-none" onClick={onClick}>
+    <NavLink to="/" aria-label="HO Oxygen — Home" className="flex items-center gap-2 select-none" onClick={onClick}>
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true" className="shrink-0">
         <ellipse cx="16" cy="7" rx="9" ry="4" fill={fills.body} />
         <rect x="7" y="7" width="18" height="16" fill={fills.body} />

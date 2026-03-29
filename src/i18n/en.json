@@ -31,7 +31,7 @@
         "title": "Hydrogen Gas",
         "desc": "High-purity hydrogen for industrial and research applications."
       },
-      "carbondioxite": {
+      "carbondioxide": {
         "title": "Carbondioxide Gas",
         "desc": "Carbondioxide for various applications."
       },
@@ -78,12 +78,12 @@
   },
   "about": {
     "hero": {
-      "title": "About HO Gas Factory",
+      "title": "About HO Oxygen",
       "subtitle": "Our story, mission, and commitment to safe gas supply across Nepal."
     },
     "story": {
       "title": "Our Story",
-      "body": "HO Gas Factory has been providing safe, reliable gas supply to hospitals, clinics, and industrial users across Nepal. Our commitment to quality and safety drives everything we do."
+      "body": "HO Oxygen has been providing safe, reliable gas supply to hospitals, clinics, and industrial users across Nepal. Our commitment to quality and safety drives everything we do."
     },
     "team": {
       "title": "Our Team"
@@ -114,7 +114,9 @@
     "tabs": {
       "oxygen": "Oxygen",
       "nitrogen": "Nitrogen",
-      "hydrogen": "Hydrogen"
+      "hydrogen": "Hydrogen",
+      "carbondioxide": "Carbondioxide",
+      "argon": "Argon"
     },
     "table": {
       "size": "Size",
@@ -233,7 +235,7 @@
     "location": {
       "title": "Find Us"
     },
-    "copyright": "© {{year}} HO Gas Factory. All rights reserved."
+    "copyright": "© {{year}} HO Oxygen. All rights reserved."
   },
   "common": {
     "comingSoon": "Coming soon",

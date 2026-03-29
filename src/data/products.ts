@@ -59,7 +59,7 @@ export const PRODUCTS: readonly GasProduct[] = [
     ],
   },
   {
-    key: 'carbondioxite',
+    key: 'carbondioxide',
     useCases: [
       'Industrial processes',
       'Research & laboratories',

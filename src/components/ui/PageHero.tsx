@@ -19,7 +19,7 @@ type PageHeroProps = {
  *   - Optional subtitle in a semi-transparent white
  *
  * Usage:
- *   <PageHero title="About HO Gas Factory" subtitle="Our story and mission." />
+ *   <PageHero title="About HO Oxygen" subtitle="Our story and mission." />
  *   <PageHero title="Get In Touch"><Button as="a" href="tel:+977...">Call Us</Button></PageHero>
  */
 export default function PageHero({

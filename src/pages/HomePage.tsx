@@ -8,10 +8,10 @@ export const ssgOptions: SsgOptions = {
   routeUrl: '/',
   Head: () => (
     <>
-      <title>HO Gas Factory — Reliable Gas Supply for Medical & Industrial Use</title>
+      <title>HO Oxygen — Reliable Gas Supply for Medical & Industrial Use</title>
       <meta
         name="description"
-        content="HO Gas Factory provides reliable oxygen, nitrogen, and hydrogen gas supply for hospitals, medical facilities, and industrial users across Nepal."
+        content="HO Oxygen provides reliable oxygen, nitrogen, and hydrogen gas supply for hospitals, medical facilities, and industrial users across Nepal."
       />
     </>
   ),
@@ -77,8 +77,8 @@ function HomeHero() {
         {/* Hero image placeholder */}
         <div className="hidden lg:flex justify-center">
           <img
-            src="https://placehold.co/520x380/1e3a5f/ffffff?text=HO+Gas+Factory"
-            alt="HO Gas Factory facility"
+            src="https://placehold.co/520x380/1e3a5f/ffffff?text=HO+Oxygen"
+            alt="HO Oxygen facility"
             className="rounded-2xl shadow-2xl"
             width={520}
             height={380}
@@ -114,7 +114,7 @@ const GAS_ICONS = {
 
 function GasHighlights() {
   const { t } = useTranslation()
-  const gases = ['oxygen', 'nitrogen', 'hydrogen', 'carbondioxite', 'argon'] as const
+  const gases = ['oxygen', 'nitrogen', 'hydrogen', 'carbondioxide', 'argon'] as const
   const headerRef = useScrollAnimation<HTMLDivElement>()
   const gridRef = useScrollAnimation<HTMLDivElement>({ stagger: 120 })
 

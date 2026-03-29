@@ -1,4 +1,4 @@
-# HO Gas Factory — Deployment Specification
+# HO Oxygen — Deployment Specification
 
 **Last updated:** 2026-03-28
 

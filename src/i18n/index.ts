@@ -6,7 +6,7 @@ import en from './en.json'
 import np from './np.json'
 
 /**
- * i18n configuration for HO Gas Factory.
+ * i18n configuration for HO Oxygen.
  *
  * Languages: English (en) + Nepali (ne)
  * - Translations are bundled into the JS bundle (no HTTP fetch at runtime)

@@ -1,4 +1,4 @@
-# HO Gas Factory — Architecture & System Design
+# HO Oxygen — Architecture & System Design
 
 **Date:** 2026-03-27
 **Status:** Approved for implementation (pending user sign-off on this document)
@@ -33,7 +33,7 @@
 
 ## 1. Project Context
 
-This is a **greenfield static informational website** for HO Gas Factory in Nepal. As of 2026-03-27:
+This is a **greenfield static informational website** for HO Oxygen in Nepal. As of 2026-03-27:
 
 - Zero source code exists. No `src/`, `package.json`, or build artifacts.
 - Only documentation files are present (`CLAUDE.md`, `tasks/1-FEATURES.md`, `docs/`).
@@ -331,7 +331,7 @@ Both `en.json` and `np.json` are imported directly in `src/i18n/config.ts` and p
   "home.hero.cta_contact": "Contact Us",
   "home.hero.cta_products": "Explore Products",
 
-  "footer.copyright": "© 2026 HO Gas Factory. All rights reserved.",
+  "footer.copyright": "© 2026 HO Oxygen. All rights reserved.",
   ...
 }
 ```
