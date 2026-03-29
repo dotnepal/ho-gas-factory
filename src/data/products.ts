@@ -1,4 +1,4 @@
-export type GasKey = 'oxygen' | 'nitrogen' | 'hydrogen'
+export type GasKey = 'oxygen' | 'nitrogen' | 'hydrogen'| 'carbondioxide' | 'argon'
 
 export type CylinderRow = {
   size: string

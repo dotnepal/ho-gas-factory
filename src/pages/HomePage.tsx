@@ -110,6 +110,18 @@ const GAS_ICONS = {
       <text x="20" y="26" textAnchor="middle" fontSize="16" fill="currentColor" fontWeight="700">H₂</text>
     </svg>
   ),
+  carbondioxide: (
+    <svg viewBox="0 0 40 40" fill="none" className="w-10 h-10" aria-hidden="true">
+      <circle cx="20" cy="20" r="18" stroke="currentColor" strokeWidth="2" />
+      <text x="20" y="26" textAnchor="middle" fontSize="16" fill="currentColor" fontWeight="700">H₂</text>
+    </svg>
+  ),
+  argon: (
+    <svg viewBox="0 0 40 40" fill="none" className="w-10 h-10" aria-hidden="true">
+      <circle cx="20" cy="20" r="18" stroke="currentColor" strokeWidth="2" />
+      <text x="20" y="26" textAnchor="middle" fontSize="16" fill="currentColor" fontWeight="700">H₂</text>
+    </svg>
+  ),
 }
 
 function GasHighlights() {
