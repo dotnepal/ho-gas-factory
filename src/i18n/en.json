@@ -31,6 +31,14 @@
         "title": "Hydrogen Gas",
         "desc": "High-purity hydrogen for industrial and research applications."
       },
+      "carbondioxite": {
+        "title": "Carbondioxide Gas",
+        "desc": "Carbondioxide for various applications."
+      },
+      "argon": {
+        "title": "Argon Gas",
+        "desc": "Argon gas for industrial applications, used as an inert gas shield in arc welding, also used in metal processing and refining. "
+      },
       "learnMore": "Learn More"
     },
     "services": {
@@ -185,9 +193,9 @@
       "phone": "Phone",
       "email": "Email",
       "address": "Address",
-      "phoneValue": "+977 01-XXXXXXX",
+      "phoneValue": "+977-9858030326",
       "emailValue": "info@hogasfactory.com.np",
-      "addressValue": "Kathmandu, Nepal"
+      "addressValue": "Parashpur, Nepalgunj, Banke"
     },
     "map": {
       "title": "Our Location"

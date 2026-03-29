@@ -24,7 +24,7 @@ function FooterLogo() {
 
       <span className="font-display font-bold leading-none">
         <span className="text-brand-accent text-xl">HO</span>
-        <span className="text-white text-lg"> Gas Factory</span>
+        <span className="text-white text-lg">Oxygen</span>
       </span>
     </Link>
   )
@@ -147,13 +147,13 @@ export default function Footer() {
             <FooterHeading>{t('footer.location.title')}</FooterHeading>
             <div className="rounded-lg overflow-hidden border border-white/10">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56516.31773748406!2d85.29111125!3d27.7088754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb198a307baabf%3A0xb978843b79cd67a7!2sKathmandu%2C%20Nepal!5e0!3m2!1sen!2snp!4v1711500000000!5m2!1sen!2snp"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3520.969076166756!2d81.59749289363711!3d28.055968814062695!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3998617a96777295%3A0x1c6f18442e6f62eb!2zSE8gT3h5Z2VuIEluZHVzdHJpZXMgUHZ0IEx0ZCDgpI_gpJou4KSTLiDgpIXgpJXgpY3gpLjgpL_gpJzgpKgg4KSH4KSo4KWN4KSh4KS44KWN4KSf4KWN4KSw4KS_4KScIOCkquCljeCksOCkvi4g4KSy4KS_Lg!5e0!3m2!1sen!2sus!4v1774774756092!5m2!1sen!2sus"
                 width="100%"
                 height="200"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="HO Gas Factory Location — Kathmandu, Nepal"
-                aria-label="Google Map showing Kathmandu, Nepal"
+                title="HO Gas Factory Location — Parashpur, Nepalgunj, Nepal"
+                aria-label="Google Map showing Parashpur, Nepalgunj, Nepal"
                 className="block"
               />
             </div>

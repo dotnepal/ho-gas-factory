@@ -25,10 +25,9 @@ export const PRODUCTS: readonly GasProduct[] = [
       'Industrial cutting & welding',
     ],
     cylinders: [
-      { size: 'S',  capacity: '1.5 L', weight: '3 kg',  rent: true,  sale: true  },
-      { size: 'M',  capacity: '5 L',   weight: '8 kg',  rent: true,  sale: true  },
-      { size: 'L',  capacity: '10 L',  weight: '15 kg', rent: true,  sale: true  },
-      { size: 'XL', capacity: '47 L',  weight: '60 kg', rent: false, sale: true  },
+      { size: 'Small',  capacity: '10 L', weight: '3 kg',  rent: true,  sale: true  },
+      { size: 'Medium',  capacity: '5 L',   weight: '8 kg',  rent: true,  sale: true  },
+      { size: 'Big',  capacity: '47 L',  weight: '15 kg', rent: true,  sale: true  },
     ],
   },
   {
@@ -40,9 +39,9 @@ export const PRODUCTS: readonly GasProduct[] = [
       'Metal fabrication',
     ],
     cylinders: [
-      { size: 'S', capacity: '5 L',  weight: '8 kg',  rent: true,  sale: true },
-      { size: 'M', capacity: '10 L', weight: '15 kg', rent: true,  sale: true },
-      { size: 'L', capacity: '47 L', weight: '60 kg', rent: false, sale: true },
+      { size: 'Small',  capacity: '10 L', weight: '3 kg',  rent: true,  sale: true  },
+      { size: 'Medium',  capacity: '5 L',   weight: '8 kg',  rent: true,  sale: true  },
+      { size: 'Big',  capacity: '47 L',  weight: '15 kg', rent: true,  sale: true  },
     ],
   },
   {
@@ -54,9 +53,37 @@ export const PRODUCTS: readonly GasProduct[] = [
       'Fuel cell applications',
     ],
     cylinders: [
-      { size: 'S', capacity: '5 L',  weight: '8 kg',  rent: false, sale: true },
-      { size: 'M', capacity: '10 L', weight: '15 kg', rent: false, sale: true },
-      { size: 'L', capacity: '47 L', weight: '60 kg', rent: false, sale: true },
+      { size: 'Small',  capacity: '10 L', weight: '3 kg',  rent: true,  sale: true  },
+      { size: 'Medium',  capacity: '5 L',   weight: '8 kg',  rent: true,  sale: true  },
+      { size: 'Big',  capacity: '47 L',  weight: '15 kg', rent: true,  sale: true  },
     ],
   },
+  {
+    key: 'carbondioxite',
+    useCases: [
+      'Industrial processes',
+      'Research & laboratories',
+      'Chemical synthesis',
+      'Fuel cell applications',
+    ],
+    cylinders: [
+      { size: 'Small',  capacity: '10 L', weight: '3 kg',  rent: true,  sale: true  },
+      { size: 'Medium',  capacity: '5 L',   weight: '8 kg',  rent: true,  sale: true  },
+      { size: 'Big',  capacity: '47 L',  weight: '15 kg', rent: true,  sale: true  },
+    ],
+  },
+  {
+    key: 'argon',
+    useCases: [
+      'Industrial processes',
+      'Research & laboratories',
+      'Chemical synthesis',
+      'Fuel cell applications',
+    ],
+    cylinders: [
+      { size: 'Small',  capacity: '10 L', weight: '3 kg',  rent: true,  sale: true  },
+      { size: 'Medium',  capacity: '5 L',   weight: '8 kg',  rent: true,  sale: true  },
+      { size: 'Big',  capacity: '47 L',  weight: '15 kg', rent: true,  sale: true  },
+    ],
+  }
 ]

@@ -36,18 +36,19 @@ console.log(`[inject-scripts] Main bundle: ${mainChunk}`)
 const distFiles = await readdir(distDir)
 const htmlFiles = distFiles.filter((f) => f.endsWith('.html'))
 
-for (const htmlFile of htmlFiles) {
-  const htmlPath = join(distDir, htmlFile)
-  let html = await readFile(htmlPath, 'utf-8')
+await Promise.all(
+  htmlFiles.map(async (htmlFile) => {
+    const htmlPath = join(distDir, htmlFile)
+    const html = await readFile(htmlPath, 'utf-8')
 
-  if (html.includes('/assets/index-')) {
-    console.log(`[inject-scripts] Skipped  ${htmlFile} (already has bundle reference)`)
-    continue
-  }
+    if (html.includes('/assets/index-')) {
+      console.log(`[inject-scripts] Skipped  ${htmlFile} (already has bundle reference)`)
+      return
+    }
 
-  html = html.replace('</body>', `    ${scriptTag}\n</body>`)
-  await writeFile(htmlPath, html)
-  console.log(`[inject-scripts] Injected ${htmlFile}`)
-}
+    await writeFile(htmlPath, html.replace('</body>', `    ${scriptTag}\n</body>`))
+    console.log(`[inject-scripts] Injected ${htmlFile}`)
+  }),
+)
 
 console.log('[inject-scripts] Done.')
