@@ -135,6 +135,8 @@ See `tasks/1-FEATURES.md` for full ASCII wireframes.
 1. **Oxygen Gas** (Primary - Medical use)
 2. **Nitrogen Gas**
 3. **Hydrogen Gas**
+4. **Carbon Dioxide (CO₂)**
+5. **Argon (Ar)**
 
 ### 2.2 Product Organization
 
@@ -147,7 +149,6 @@ See `tasks/1-FEATURES.md` for full ASCII wireframes.
 For each cylinder size, display:
 
 - **Capacity:** In liters
-- **Weight:** Filled cylinder weight only
 - **Description:** Brief description of the cylinder/use case
 - **Availability Indicators:**
     - Available for Rent (✓ or ✗)
@@ -258,8 +259,8 @@ For each cylinder size, display:
 
 - Contact form (primary lead capture)
 - Phone number display
-- Email address display
 - Single inbox for all inquiries
+- *(Email address display temporarily hidden until correct address is confirmed)*
 
 ---
 
@@ -268,7 +269,6 @@ For each cylinder size, display:
 ### 5.1 Imagery
 
 - **Facility Photos:** Production and storage areas
-- **Team Photos:** Staff and leadership
 - **Product Photos:** Cylinder samples (different sizes)
 - **Safety/Professional Images:** As needed for credibility
 
@@ -361,7 +361,7 @@ See `CHANGELOG.md` for the full history of changes, bug fixes, and feature compl
 - For complex problems, throw more compute at it via subagents
 - One tack per subagent for focused execution
 
-### 10.3 Self-Improvemennt Loop
+### 10.3 Self-Improvement Loop
 - After ANY correction from the user: update `tasks/lessons.md` with the pattern
 - Write rules for yourself that prevent the same mistake
 - Ruthlessly iterate on these lessons until mistake rate drops
@@ -369,7 +369,7 @@ See `CHANGELOG.md` for the full history of changes, bug fixes, and feature compl
 
 ### 10.4 Verification Before Done
 - Never mark a task complete without proving it works
-- Diff behaviro between main and your changes when relevant
+- Diff behavior between main and your changes when relevant
 - Ask yourself: "Would a staff engineer approve this?"
 - Run tests, check logs, demonstrate correctness
 
@@ -397,8 +397,8 @@ See `CHANGELOG.md` for the full history of changes, bug fixes, and feature compl
 
 ## 11. Core Principles
 
-- **Simplicity First**: Make every chagne as simple as possible. Impact minimal code.
-- **No Laziness**: Find root cuases. No temporary fixes. Senior developer standards.
+- **Simplicity First**: Make every change as simple as possible. Impact minimal code.
+- **No Laziness**: Find root causes. No temporary fixes. Senior developer standards.
 - **Minimal Impact**: Changes should only touch what's necessary. Avoid introducing bugs.
 
 ---

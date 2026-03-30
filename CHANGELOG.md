@@ -4,6 +4,23 @@ All notable changes to the HO Oxygen website are recorded here in reverse-chrono
 
 ---
 
+## 2026-03-30 — CLAUDE.md stale spec fixes + typo corrections
+
+### Stale content corrected
+
+- **§2.1 Gas Types** — Added Carbon Dioxide (CO₂) and Argon (Ar) to the list (was 3 gases, now correctly shows all 5)
+- **§2.3 Product Display** — Removed `Weight` from display fields; weight column was removed from the Products page UI in a prior session
+- **§4.1 Contact Methods** — Removed "Email address display"; email is temporarily hidden until correct address is confirmed
+- **§5.1 Imagery** — Removed "Team Photos"; team section was removed from the About page
+
+### Typos fixed
+
+- §10.3 heading: "Self-Improvemennt" → "Self-Improvement"
+- §10.4: "behaviro" → "behavior"
+- §11: "chagne" → "change", "root cuases" → "root causes"
+
+---
+
 ## 2026-03-30 — UI Cleanup: WhyChooseUs moved, FAQ hidden, email hidden, flag icons
 
 ### WhyChooseUs moved: About → Services page
