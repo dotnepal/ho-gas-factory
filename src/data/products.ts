@@ -26,7 +26,7 @@ export const PRODUCTS: readonly GasProduct[] = [
     ],
     cylinders: [
       { size: 'Small',  capacity: '10 L', weight: '3 kg',  rent: true,  sale: true  },
-      { size: 'Medium',  capacity: '5 L',   weight: '8 kg',  rent: true,  sale: true  },
+      { size: 'Medium',  capacity: '25 L',   weight: '8 kg',  rent: true,  sale: true  },
       { size: 'Big',  capacity: '47 L',  weight: '15 kg', rent: true,  sale: true  },
     ],
   },
@@ -40,7 +40,7 @@ export const PRODUCTS: readonly GasProduct[] = [
     ],
     cylinders: [
       { size: 'Small',  capacity: '10 L', weight: '3 kg',  rent: true,  sale: true  },
-      { size: 'Medium',  capacity: '5 L',   weight: '8 kg',  rent: true,  sale: true  },
+      { size: 'Medium',  capacity: '25 L',   weight: '8 kg',  rent: true,  sale: true  },
       { size: 'Big',  capacity: '47 L',  weight: '15 kg', rent: true,  sale: true  },
     ],
   },
@@ -54,7 +54,7 @@ export const PRODUCTS: readonly GasProduct[] = [
     ],
     cylinders: [
       { size: 'Small',  capacity: '10 L', weight: '3 kg',  rent: true,  sale: true  },
-      { size: 'Medium',  capacity: '5 L',   weight: '8 kg',  rent: true,  sale: true  },
+      { size: 'Medium',  capacity: '25 L',   weight: '8 kg',  rent: true,  sale: true  },
       { size: 'Big',  capacity: '47 L',  weight: '15 kg', rent: true,  sale: true  },
     ],
   },
@@ -68,7 +68,7 @@ export const PRODUCTS: readonly GasProduct[] = [
     ],
     cylinders: [
       { size: 'Small',  capacity: '10 L', weight: '3 kg',  rent: true,  sale: true  },
-      { size: 'Medium',  capacity: '5 L',   weight: '8 kg',  rent: true,  sale: true  },
+      { size: 'Medium',  capacity: '25 L',   weight: '8 kg',  rent: true,  sale: true  },
       { size: 'Big',  capacity: '47 L',  weight: '15 kg', rent: true,  sale: true  },
     ],
   },
@@ -82,7 +82,7 @@ export const PRODUCTS: readonly GasProduct[] = [
     ],
     cylinders: [
       { size: 'Small',  capacity: '10 L', weight: '3 kg',  rent: true,  sale: true  },
-      { size: 'Medium',  capacity: '5 L',   weight: '8 kg',  rent: true,  sale: true  },
+      { size: 'Medium',  capacity: '25 L',   weight: '8 kg',  rent: true,  sale: true  },
       { size: 'Big',  capacity: '47 L',  weight: '15 kg', rent: true,  sale: true  },
     ],
   }

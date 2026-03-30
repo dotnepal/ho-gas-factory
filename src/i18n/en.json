@@ -152,6 +152,12 @@
     },
     "hydrogen": {
       "desc": "High-purity hydrogen for industrial processes, research laboratories, and specialised applications."
+    },
+    "carbondioxide": {
+      "desc": "mostly used as a refrigerant or coolant, also used in manufacturing, in chemical industry, in metalworking, in health care, when added to medical-grade oxygen, CO₂ can help stimulate respiration."
+    },
+    "argon": {
+      "desc": "mostly used as a refrigerant or coolant"
     }
   },
   "contact": {
