@@ -529,3 +529,67 @@ See `tasks/lessons.md` for full details. Key additions:
 See `tasks/lessons.md` for full details. Key additions:
 - **L-008:** SVG icon text content is not type-checked — copy-pasted icons require visual QA in browser to verify correct chemical formula renders
 - **L-009:** Cross-reference rendered columns against CLAUDE.md §2.3 before shipping — scaffold code often includes more fields than the spec requires
+
+---
+
+### 2026-03-30 — Remove TeamGrid from AboutPage
+
+#### Change: `TEAM_MEMBERS` data + `TeamGrid` section removed from About page
+
+**Affected file:** `src/pages/AboutPage.tsx`
+
+**What was removed:**
+- `TEAM_MEMBERS` constant (4 placeholder team member entries with name, role, photo)
+- `TeamGrid` component function (team member photo card grid, `bg-brand-light` section)
+- `<TeamGrid />` usage in `AboutPage`
+
+**What remains on About page:** Hero → Company Story → Service Areas → Why Choose Us
+
+**i18n keys:** `about.team.title` key remains in `en.json` / `np.json` — unused but retained (cleanup not requested).
+
+**Build result:** `AboutPage` bundle shrank from 6.53 kB → 5.14 kB. All 6 static pages prerendered successfully.
+
+---
+
+### 2026-03-30 — UI Cleanup: WhyChooseUs moved, FAQ hidden, email hidden, flag icons
+
+#### WhyChooseUs moved: About → Services page
+
+**From:** `src/pages/AboutPage.tsx`
+**To:** `src/pages/ServicesPage.tsx`
+
+- `WHY_US_ICONS` constant (4 SVG icons: safety, certified, delivery, support) moved to ServicesPage
+- `WhyChooseUs` component function moved to ServicesPage
+- `<WhyChooseUs />` placed after the CTA Banner section, before `</main>` (between CTA and footer)
+- Section uses `bg-white` background (CTA uses `bg-brand-light`, so alternation is maintained)
+- `Card` removed from AboutPage imports (no longer used there)
+- AboutPage bundle: 5.14 kB → 2.67 kB; ServicesPage bundle: 4.67 kB → 7.13 kB
+
+#### FAQ hidden from navigation and footer
+
+**Navbar** (`src/components/layout/Navbar.tsx`):
+- Both desktop pill links and mobile dropdown links now filter out `/faq` via `.filter((route) => route.path !== '/faq')`
+- FAQ page remains fully routable at `/faq` — only hidden from nav UI
+
+**Footer** (`src/components/layout/Footer.tsx`):
+- Removed `<FooterLink to="/faq">` from Quick Links section
+
+#### Email hidden from all pages
+
+Email `info@hogasfactory.com.np` temporarily hidden until updated with correct address.
+
+- **Footer**: removed `<ContactItem icon={EmailIcon} ...>` email row from contact details
+- **ContactPage** (`src/pages/ContactPage.tsx`): removed email entry from the contact info items array
+- i18n keys (`contact.info.email`, `contact.info.emailValue`) retained — not deleted, just not rendered
+
+#### Flag icons added to LanguageToggle
+
+**File:** `src/components/ui/LanguageToggle.tsx`
+
+Button now shows flag emoji before the language code:
+- Switching to Nepali: `🇳🇵 NP`
+- Switching to English: `🇬🇧 EN`
+
+Flag emoji is wrapped in `aria-hidden="true"` span so screen readers use only the existing `aria-label` ("Switch to Nepali" / "Switch to English"), not the emoji character name.
+
+**Build result:** All 6 static pages prerendered, zero TypeScript errors.

@@ -76,12 +76,6 @@ const PhoneIcon = (
   </svg>
 )
 
-const EmailIcon = (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-    <polyline points="22,6 12,13 2,6" />
-  </svg>
-)
 
 const MapPinIcon = (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -116,7 +110,6 @@ export default function Footer() {
               <FooterHeading>{t('footer.contact.title')}</FooterHeading>
               <ul className="space-y-2">
                 <ContactItem icon={PhoneIcon} text={t('contact.info.phoneValue')} />
-                <ContactItem icon={EmailIcon} text={t('contact.info.emailValue')} />
                 <ContactItem icon={MapPinIcon} text={t('contact.info.addressValue')} />
               </ul>
             </div>
@@ -135,7 +128,6 @@ export default function Footer() {
               <FooterHeading>Quick Links</FooterHeading>
               <ul className="space-y-2">
                 <FooterLink to="/services">{t('nav.services')}</FooterLink>
-                <FooterLink to="/faq">{t('footer.links.faq')}</FooterLink>
                 <FooterLink to="/contact">{t('nav.contact')}</FooterLink>
                 <FooterLink to="/products">{t('nav.products')}</FooterLink>
               </ul>

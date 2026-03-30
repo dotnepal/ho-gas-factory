@@ -168,7 +168,7 @@ export default function Navbar() {
             role="list"
             className="hidden md:flex items-center gap-1"
           >
-            {ROUTES.map((route) => (
+            {ROUTES.filter((route) => route.path !== '/faq').map((route) => (
               <li key={route.path}>
                 <DesktopNavLink to={route.path} transparent={transparent}>
                   {t(route.labelKey)}
@@ -228,7 +228,7 @@ export default function Navbar() {
         >
           {/* Nav links */}
           <nav aria-label="Mobile navigation" className="px-3 pt-3 pb-2 flex flex-col gap-0.5">
-            {ROUTES.map((route) => (
+            {ROUTES.filter((route) => route.path !== '/faq').map((route) => (
               <MobileNavLink key={route.path} to={route.path} onClick={closeDropdown}>
                 {t(route.labelKey)}
               </MobileNavLink>

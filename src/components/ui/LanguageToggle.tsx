@@ -16,6 +16,7 @@ export default function LanguageToggle({
 
   const currentLang = i18n.language.startsWith('ne') ? 'ne' : 'en'
   const nextLang: SupportedLang = currentLang === 'en' ? 'ne' : 'en'
+  const flag = currentLang === 'en' ? '🇳🇵' : '🇬🇧'
   const label = currentLang === 'en' ? 'NP' : 'EN'
 
   function handleToggle() {
@@ -34,7 +35,7 @@ export default function LanguageToggle({
           : 'border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white',
       ].join(' ')}
     >
-      {label}
+      <span aria-hidden="true">{flag}</span> {label}
     </button>
   )
 }

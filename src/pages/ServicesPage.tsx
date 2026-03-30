@@ -90,6 +90,105 @@ function PickupIcon() {
 const SERVICE_ICONS = [RentIcon, SaleIcon, RefillingIcon, BulkIcon, DeliveryIcon, PickupIcon]
 const SERVICE_KEYS = ['rent', 'sale', 'refilling', 'bulk', 'delivery', 'pickup'] as const
 
+// ─── Why Choose Us data ──────────────────────────────────────────────────────
+
+const WHY_US_ICONS = {
+  safety: (
+    <svg viewBox="0 0 40 40" fill="none" className="w-10 h-10" aria-hidden="true">
+      <path
+        d="M20 4L6 10v10c0 8.284 5.948 15.978 14 18 8.052-2.022 14-9.716 14-18V10L20 4z"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinejoin="round"
+      />
+      <polyline
+        points="13,21 18,26 27,15"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ),
+  certified: (
+    <svg viewBox="0 0 40 40" fill="none" className="w-10 h-10" aria-hidden="true">
+      <circle cx="20" cy="20" r="14" stroke="currentColor" strokeWidth="2" />
+      <polyline
+        points="13,20 18,25 27,14"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ),
+  delivery: (
+    <svg viewBox="0 0 40 40" fill="none" className="w-10 h-10" aria-hidden="true">
+      <rect x="2" y="12" width="24" height="16" rx="2" stroke="currentColor" strokeWidth="2" />
+      <path
+        d="M26 16h6l4 6v6h-10V16z"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinejoin="round"
+      />
+      <circle cx="10" cy="30" r="3" stroke="currentColor" strokeWidth="2" />
+      <circle cx="30" cy="30" r="3" stroke="currentColor" strokeWidth="2" />
+    </svg>
+  ),
+  support: (
+    <svg viewBox="0 0 40 40" fill="none" className="w-10 h-10" aria-hidden="true">
+      <circle cx="20" cy="20" r="14" stroke="currentColor" strokeWidth="2" />
+      <path
+        d="M20 12v8l5 3"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ),
+}
+
+function WhyChooseUs() {
+  const { t } = useTranslation()
+  const items = ['safety', 'certified', 'delivery', 'support'] as const
+  const headerRef = useScrollAnimation<HTMLDivElement>()
+  const gridRef = useScrollAnimation<HTMLDivElement>({ stagger: 100 })
+
+  return (
+    <section
+      aria-label="Why Choose Us"
+      className="py-20 px-6 bg-white"
+    >
+      <div className="max-w-6xl mx-auto">
+        <div ref={headerRef} className="animate-on-scroll mb-12">
+          <SectionHeader
+            title={t('about.whyUs.title')}
+            align="center"
+          />
+        </div>
+        <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {items.map((item) => (
+            <Card key={item} hover as="article" className="animate-on-scroll flex flex-col items-start gap-4">
+              <div className="p-3 rounded-xl bg-brand-light text-brand-blue">
+                {WHY_US_ICONS[item]}
+              </div>
+              <div>
+                <h3 className="text-lg font-display font-bold text-brand-dark">
+                  {t(`about.whyUs.${item}`)}
+                </h3>
+                <p className="mt-1 font-body text-sm text-brand-steel leading-relaxed">
+                  {t(`about.whyUs.${item}Desc`)}
+                </p>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 // ─── ServicesPage ────────────────────────────────────────────────────────────
 
 export default function ServicesPage() {
@@ -160,6 +259,9 @@ export default function ServicesPage() {
           </div>
         </div>
       </section>
+
+      {/* ── Why Choose Us ────────────────────────────────────────── */}
+      <WhyChooseUs />
     </main>
   )
 }
