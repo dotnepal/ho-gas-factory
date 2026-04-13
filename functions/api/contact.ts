@@ -51,10 +51,10 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   // Basic phone number check (digits, spaces, dashes, parentheses)
   // check that phone number contains 10 digits
   // Check phone number format: +977-{10 digits} or 01-{9 digits}
-  const phonePattern = /^(\+977[-\s]?)?(01[-\s]?)?\d{9}$/
-  if (!phonePattern.test(data.phone)) {
-    return Response.json({ success: false, error: 'Invalid phone number' }, { status: 400 })
-  }
+  // const phonePattern = /^(\+977[-\s]?)?(01[-\s]?)?\d{9}$/
+  // if (!phonePattern.test(data.phone)) {
+  //   return Response.json({ success: false, error: 'Invalid phone number' }, { status: 400 })
+  // }
 
   // Basic email format check
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/

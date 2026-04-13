@@ -14,7 +14,7 @@ dist-ssr/
 
 # Local cloudflare pages configuration
 .dev.vars
-.wrangler/state/
+.wrangler/
 
 # Logs
 npm-debug.log*

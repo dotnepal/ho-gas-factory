@@ -18,9 +18,20 @@ function normalizeText(value) {
   return String(value).replace(/\r?\n/g, '\r\n')
 }
 
+function senderDomain(sender) {
+  const atIndex = sender.lastIndexOf('@')
+  return atIndex >= 0 ? sender.slice(atIndex + 1) : 'localhost'
+}
+
+function buildMessageId(sender) {
+  return `<${crypto.randomUUID()}@${senderDomain(sender)}>`
+}
+
 function buildRawEmail(data, sender, recipient) {
   const subject = sanitizeHeader(`New Inquiry from ${data.name} - ${data.company}`)
   const replyTo = sanitizeHeader(data.email)
+  const date = new Date().toUTCString()
+  const messageId = buildMessageId(sender)
   const textBody = [
     'New contact form submission',
     '',
@@ -42,11 +53,14 @@ function buildRawEmail(data, sender, recipient) {
     `To: ${recipient}`,
     `Reply-To: ${replyTo}`,
     `Subject: ${subject}`,
+    `Date: ${date}`,
+    `Message-ID: ${messageId}`,
     'MIME-Version: 1.0',
     'Content-Type: text/plain; charset=UTF-8',
     'Content-Transfer-Encoding: 8bit',
     '',
     textBody,
+    '',
   ].join('\r\n')
 }
 
