@@ -12,6 +12,10 @@ dist-ssr/
 .env.local
 .env.*.local
 
+# Local cloudflare pages configuration
+.dev.vars
+.wrangler/state/
+
 # Logs
 npm-debug.log*
 yarn-debug.log*

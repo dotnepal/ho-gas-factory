@@ -8,10 +8,10 @@ export const ssgOptions: SsgOptions = {
   routeUrl: '/',
   Head: () => (
     <>
-      <title>HO Oxygen — Reliable Gas Supply for Medical & Industrial Use</title>
+      <title>HO Oxygen Industries Pvt. Ltd. — Reliable Gas Supply for Medical & Industrial Use across Nepal</title>
       <meta
         name="description"
-        content="HO Oxygen provides reliable oxygen, nitrogen, and hydrogen gas supply for hospitals, medical facilities, and industrial users across Nepal."
+        content="HO Oxygen Industries Pvt. Ltd. provides reliable oxygen, nitrogen, and hydrogen gas supply for hospitals, medical facilities, and industrial users across Nepal."
       />
     </>
   ),

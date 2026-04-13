@@ -7,5 +7,9 @@ pages_build_output_dir = "./dist"
 VITE_FORM_ENDPOINT = "/api/contact"
 NODE_VERSION="22.16.0"
 
-# Runtime secrets — set in Cloudflare Pages dashboard, NOT here:
-#   WEB3FORMS_KEY — Web3Forms API key (used server-side by functions/api/contact.ts)
+[[services]]
+binding = "CONTACT_MAILER"
+service = "contact-mailer"
+
+# Runtime bindings:
+#   CONTACT_MAILER — Service Binding to the Worker in workers/contact-mailer/

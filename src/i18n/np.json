@@ -185,15 +185,18 @@
       "success": "जिज्ञासा सफलतापूर्वक पठाइयो! हामी चाँडै सम्पर्क गर्नेछौं।",
       "error": "केही गलत भयो। कृपया फेरि प्रयास गर्नुहोस् वा सिधै फोन गर्नुहोस्।",
       "gasOptions": {
-        "oxygen": "अक्सिजन",
-        "nitrogen": "नाइट्रोजन",
+        "argon": "आर्गन",
+        "carbondioxide": "कार्बनडाईअकसाईड",
         "hydrogen": "हाइड्रोजन",
+        "nitrogen": "नाइट्रोजन",
+        "oxygen": "अक्सिजन",
         "other": "अन्य"
       },
       "requirementOptions": {
         "rent": "भाडामा",
         "sale": "बिक्री",
-        "both": "दुवै"
+        "both": "दुवै",
+        "inquire": "जिज्ञासा"
       }
     },
     "info": {
@@ -202,8 +205,8 @@
       "email": "इमेल",
       "address": "ठेगाना",
       "phoneValue": "+९७७ ९८५८०३०३२६",
-      "emailValue": "info@hogasfactory.com.np",
-      "addressValue": "परसपुर, नेपालगँज, बाँके"
+      "emailValue": "info@hooxygen.com.np",
+      "addressValue": "परसपुर-१७, नेपालगँज, बाँके"
     },
     "map": {
       "title": "हाम्रो स्थान"
@@ -241,7 +244,7 @@
     "location": {
       "title": "हामीलाई भेट्नुहोस्"
     },
-    "copyright": "© {{year}} HO ग्यास फ्याक्ट्री। सर्वाधिकार सुरक्षित।"
+    "copyright": "© {{year}} HO Oxygen Industries Pvt. Ltd.। सर्वाधिकार सुरक्षित।"
   },
   "common": {
     "comingSoon": "छिट्टै आउँदैछ",

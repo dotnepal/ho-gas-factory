@@ -4,10 +4,8 @@
  * Cloudflare Pages Function — POST /api/contact
  *
  * Accepts a JSON contact form submission, validates required fields,
- * then forwards to Web3Forms API for email delivery.
- *
- * Environment variables (set in Cloudflare Pages dashboard):
- *   WEB3FORMS_KEY — Web3Forms access key
+ * then forwards the normalized payload to the internal contact mailer Worker
+ * over a Service Binding.
  */
 
 interface ContactFormData {
@@ -21,7 +19,7 @@ interface ContactFormData {
 }
 
 export interface Env {
-  WEB3FORMS_KEY: string
+  CONTACT_MAILER: Fetcher
 }
 
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
@@ -50,32 +48,42 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     }
   }
 
+  // Basic phone number check (digits, spaces, dashes, parentheses)
+  // check that phone number contains 10 digits
+  // Check phone number format: +977-{10 digits} or 01-{9 digits}
+  const phonePattern = /^(\+977[-\s]?)?(01[-\s]?)?\d{9}$/
+  if (!phonePattern.test(data.phone)) {
+    return Response.json({ success: false, error: 'Invalid phone number' }, { status: 400 })
+  }
+
   // Basic email format check
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   if (!emailPattern.test(data.email)) {
     return Response.json({ success: false, error: 'Invalid email address' }, { status: 400 })
   }
 
-  // Forward to Web3Forms
   const payload = {
-    access_key: env.WEB3FORMS_KEY,
-    subject: `New Inquiry from ${data.name.trim()} — ${data.company.trim()}`,
-    from_name: data.name.trim(),
     email: data.email.trim(),
+    name: data.name.trim(),
     phone: data.phone.trim(),
     company: data.company.trim(),
-    gas_type: data.gasType ?? 'Not specified',
-    requirement_type: data.requirementType ?? 'Not specified',
+    gasType: data.gasType?.trim() || 'Not specified',
+    requirementType: data.requirementType?.trim() || 'Not specified',
     message: data.message?.trim() ?? '(no message)',
   }
 
-  const web3Response = await fetch('https://api.web3forms.com/submit', {
+  const mailerResponse = await env.CONTACT_MAILER.fetch('https://contact-mailer.internal/send', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
     body: JSON.stringify(payload),
   })
 
-  if (!web3Response.ok) {
+  if (!mailerResponse.ok) {
+    const mailerBody = await mailerResponse.text()
+    console.error('Contact mailer failed', {
+      status: mailerResponse.status,
+      body: mailerBody,
+    })
     return Response.json(
       { success: false, error: 'Email delivery failed. Please try again.' },
       { status: 500 },

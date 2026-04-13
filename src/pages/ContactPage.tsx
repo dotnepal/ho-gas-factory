@@ -9,10 +9,10 @@ export const ssgOptions: SsgOptions = {
   routeUrl: '/contact',
   Head: () => (
     <>
-      <title>Contact Us — HO Oxygen</title>
+      <title>Contact Us — HO Oxygen Industries Pvt. Ltd.</title>
       <meta
         name="description"
-        content="Get in touch with HO Oxygen to place a gas order, request a quote, or ask about our services."
+        content="Get in touch with HO Oxygen Industries Pvt. Ltd. to place a gas order, request a quote, or ask about our services."
       />
     </>
   ),
@@ -216,6 +216,8 @@ function ContactForm() {
             <option value="oxygen">{t('contact.form.gasOptions.oxygen')}</option>
             <option value="nitrogen">{t('contact.form.gasOptions.nitrogen')}</option>
             <option value="hydrogen">{t('contact.form.gasOptions.hydrogen')}</option>
+            <option value="argon">{t('contact.form.gasOptions.argon')}</option>
+            <option value="carbondioxide">{t('contact.form.gasOptions.carbondioxide')}</option>
             <option value="other">{t('contact.form.gasOptions.other')}</option>
           </select>
         </div>

@@ -185,10 +185,13 @@
       "success": "Inquiry submitted successfully! We'll get back to you soon.",
       "error": "Something went wrong. Please try again or call us directly.",
       "gasOptions": {
-        "oxygen": "Oxygen",
-        "nitrogen": "Nitrogen",
+        "argon": "Argon",
+        "carbondioxide": "Carbondixide",
         "hydrogen": "Hydrogen",
-        "other": "Other"
+        "nitrogen": "Nitrogen",
+        "oxygen": "Oxygen",
+        "other": "Other",
+        "inquire": "Inquire"
       },
       "requirementOptions": {
         "rent": "Rent",
@@ -202,8 +205,8 @@
       "email": "Email",
       "address": "Address",
       "phoneValue": "+977-9858030326",
-      "emailValue": "info@hogasfactory.com.np",
-      "addressValue": "Parashpur, Nepalgunj, Banke"
+      "emailValue": "info@hooxygen.com.np",
+      "addressValue": "Parashpur-17, Nepalgunj, Banke"
     },
     "map": {
       "title": "Our Location"
@@ -241,7 +244,7 @@
     "location": {
       "title": "Find Us"
     },
-    "copyright": "© {{year}} HO Oxygen. All rights reserved."
+    "copyright": "© {{year}} HO Oxygen Industries Pvt. Ltd. All rights reserved."
   },
   "common": {
     "comingSoon": "Coming soon",
