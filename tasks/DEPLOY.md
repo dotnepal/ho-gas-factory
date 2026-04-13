@@ -7,7 +7,7 @@
 ## Architecture Overview
 
 ```
-Developer → PR to main → GitHub Actions (build + deploy) → Cloudflare Pages
+Developer → PR to main → GitHub Actions (build + deploy Worker + deploy Pages) → Cloudflare
 ```
 
 - **Build** job runs on every PR (CI check) and every push to `main`
@@ -22,7 +22,7 @@ Developer → PR to main → GitHub Actions (build + deploy) → Cloudflare Page
 | Job | Trigger | Steps |
 |-----|---------|-------|
 | `build` | All PRs + push to main | checkout → setup Node 20 → `npm ci` → `npm run build` → upload artifact |
-| `deploy` | Push to `main` only | download artifact → `wrangler pages deploy dist` |
+| `deploy` | Push to `main` only | download artifact → `wrangler deploy` for `workers/contact-mailer` → `wrangler pages deploy dist` |
 
 ---
 
@@ -36,6 +36,22 @@ Set these in **GitHub → Repository → Settings → Secrets and variables → 
 | `CLOUDFLARE_ACCOUNT_ID` | Your Cloudflare account ID | CF Dashboard → right sidebar (any page) |
 
 ---
+
+## Runtime Configuration
+
+### Contact mailer Worker
+
+The Pages Function uses a service binding named `CONTACT_MAILER` that points to a separate Worker named `contact-mailer`.
+That Worker must be deployed in the same Cloudflare account before the Pages deployment can succeed.
+
+Worker config lives in `workers/contact-mailer/wrangler.toml`:
+
+| Variable | Purpose |
+|----------|---------|
+| `CONTACT_SENDER_EMAIL` | Sender address for outbound email |
+| `CONTACT_RECIPIENT_EMAIL` | Destination inbox for contact form submissions |
+
+The Worker also requires the `send_email` binding declared in that same file.
 
 ## Environment Variables
 
@@ -78,7 +94,10 @@ npm install -g wrangler
 # Authenticate
 wrangler login
 
-# Deploy for the first time (creates the project)
+# Deploy the contact mailer Worker first
+wrangler deploy --config workers/contact-mailer/wrangler.toml
+
+# Deploy Pages (creates the project if needed)
 VITE_FORM_ENDPOINT=/api/contact npm run build
 wrangler pages deploy dist --project-name=ho-gas-factory
 ```
@@ -92,10 +111,11 @@ After first deploy, subsequent deploys are handled automatically by GitHub Actio
 If GitHub Actions is unavailable, deploy manually from the repo root:
 
 ```bash
-# Build
-VITE_FORM_ENDPOINT=/api/contact npm run build
+# Deploy the service-bound Worker
+wrangler deploy --config workers/contact-mailer/wrangler.toml
 
-# Deploy
+# Build and deploy Pages
+VITE_FORM_ENDPOINT=/api/contact npm run build
 wrangler pages deploy dist --project-name=ho-gas-factory
 ```
 
@@ -117,7 +137,7 @@ Alternatively, revert the offending commit on `main` — GitHub Actions will tri
 
 - [ ] `CLOUDFLARE_API_TOKEN` added to GitHub secrets
 - [ ] `CLOUDFLARE_ACCOUNT_ID` added to GitHub secrets
-- [ ] `WEB3FORMS_KEY` added to Cloudflare Pages dashboard (Production)
+- [ ] Worker `contact-mailer` deployed in the target Cloudflare account
 - [ ] Cloudflare Pages project `ho-gas-factory` created (via first manual deploy or CF dashboard)
 - [ ] Custom domain (`hogasfactory.com.np`) configured in CF Pages → Custom Domains
 - [ ] SSL certificate provisioned by Cloudflare (automatic once domain is added)
